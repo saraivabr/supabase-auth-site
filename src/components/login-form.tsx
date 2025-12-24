@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { Mail } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { useSiteConfig } from '@/lib/config'
 import { Button } from '@/components/ui/button'
 import { SocialLoginButtons } from '@/components/auth/SocialLoginButtons'
 import { EmailOtpLoginForm } from '@/components/auth/EmailOtpLoginForm'
@@ -14,7 +13,6 @@ interface LoginFormProps extends React.ComponentPropsWithoutRef<'div'> {
 }
 
 export function LoginForm({ className, redirectTo, ...props }: LoginFormProps) {
-  const config = useSiteConfig()
   const [loginMethod, setLoginMethod] = useState<LoginMethod>('default')
 
   const handleBackToDefault = () => {

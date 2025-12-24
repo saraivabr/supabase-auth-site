@@ -40,13 +40,39 @@ export const defaultConfig: SiteConfig = {
   // Authentication configuration
   auth: {
     // OAuth providers (requires Supabase setup)
+    // You can add any Supabase-supported OAuth provider here
     providers: {
       google: {
         enabled: true,
+        // displayName: 'Google',  // Optional: defaults to 'Google'
+        // icon: 'google',         // Optional: icon identifier
+        // scopes: undefined,      // Optional: custom OAuth scopes
       },
       github: {
         enabled: true,
+        displayName: 'GitHub',    // Optional custom display name
+        scopes: 'read:user user:email',  // GitHub-specific scopes
       },
+      // Add more providers as needed:
+      // gitlab: {
+      //   enabled: false,
+      //   displayName: 'GitLab',
+      //   icon: 'gitlab',
+      // },
+      // bitbucket: {
+      //   enabled: false,
+      //   displayName: 'Bitbucket',
+      // },
+      // azure: {
+      //   enabled: false,
+      //   displayName: 'Microsoft',
+      // },
+      // facebook: {
+      //   enabled: false,
+      // },
+      // twitter: {
+      //   enabled: false,
+      // },
     },
     // Cloudflare Turnstile CAPTCHA (optional)
     turnstile: {

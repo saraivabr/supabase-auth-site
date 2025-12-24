@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState } from 'react'
 import { supabase } from './supabase'
 import type { AuthError, Session, User } from '@supabase/supabase-js'
 
-export type Provider = 'google' | 'github'
+export type Provider = string
 
 interface AuthContextType {
   user: User | null
@@ -96,11 +96,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       callbackUrl.searchParams.set('redirect', redirectTo)
     }
 
+    // Get provider config for custom scopes
+    const { getProviderConfig } = await import('./config')
+    const providerConfig = getProviderConfig(provider)
+
     const { error } = await supabase.auth.signInWithOAuth({
-      provider,
+      provider: provider as any,
       options: {
         redirectTo: callbackUrl.toString(),
-        scopes: provider === 'github' ? 'read:user user:email' : undefined,
+        scopes: providerConfig?.scopes,
       },
     })
     return { error }

@@ -1,20 +1,39 @@
 import { useEffect, useState } from 'react'
-import { Chrome, Github } from 'lucide-react'
+import {
+  Apple,
+  Chrome,
+  Github,
+  Gitlab,
+  KeyRound,
+  type LucideIcon,
+} from 'lucide-react'
 import type { Provider } from '@/lib/auth'
 import { useAuth } from '@/lib/auth'
+import { getProviderConfig, getProviderDisplayName } from '@/lib/config'
 import { Button } from '@/components/ui/button'
 
-const PROVIDER_ICONS: Record<
-  Provider,
-  React.ComponentType<{ className?: string }>
-> = {
+// Default icon mapping for common providers
+const DEFAULT_PROVIDER_ICONS: Record<string, LucideIcon> = {
+  apple: Apple,
   google: Chrome,
   github: Github,
+  gitlab: Gitlab,
 }
 
-const PROVIDER_NAMES: Record<Provider, string> = {
-  google: 'Google',
-  github: 'GitHub',
+/**
+ * Get icon component for a provider
+ * Falls back to a default key icon if no specific icon is found
+ */
+function getProviderIcon(provider: string): LucideIcon {
+  const config = getProviderConfig(provider)
+
+  // If custom icon name is specified in config, try to use it
+  if (config?.icon && DEFAULT_PROVIDER_ICONS[config.icon.toLowerCase()]) {
+    return DEFAULT_PROVIDER_ICONS[config.icon.toLowerCase()]
+  }
+
+  // Try to find icon by provider name
+  return DEFAULT_PROVIDER_ICONS[provider.toLowerCase()] || KeyRound
 }
 
 interface SocialLoginButtonsProps {
@@ -78,9 +97,9 @@ export function SocialLoginButtons({
 
       <div className="grid gap-3">
         {orderedProviders.map((provider) => {
-          const Icon = PROVIDER_ICONS[provider]
+          const Icon = getProviderIcon(provider)
           const isLoading = loading === provider
-          const providerName = PROVIDER_NAMES[provider]
+          const providerName = getProviderDisplayName(provider)
           const buttonText = `Continue with ${providerName}`
           const isPrimary =
             primaryProvider !== undefined && provider === primaryProvider

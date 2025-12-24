@@ -34,21 +34,48 @@ export function useSiteConfig(): SiteConfig {
  * @example
  * ```ts
  * const providers = getEnabledProviders()
- * // ['google', 'github'] or ['google'] or []
+ * // ['google', 'github', 'gitlab'] or ['google'] or []
  * ```
  */
-export function getEnabledProviders(): Array<'google' | 'github'> {
-  const providers: Array<'google' | 'github'> = []
+export function getEnabledProviders(): string[] {
+  return Object.entries(siteConfig.auth.providers)
+    .filter(([_, config]) => config.enabled)
+    .map(([provider]) => provider)
+}
 
-  if (siteConfig.auth.providers.google.enabled) {
-    providers.push('google')
-  }
+/**
+ * Get configuration for a specific OAuth provider
+ *
+ * @param provider - Provider name (e.g., 'google', 'github')
+ * @returns Provider configuration or undefined if not found
+ *
+ * @example
+ * ```ts
+ * const googleConfig = getProviderConfig('google')
+ * // { enabled: true, displayName: 'Google', ... }
+ * ```
+ */
+export function getProviderConfig(provider: string) {
+  return siteConfig.auth.providers[provider]
+}
 
-  if (siteConfig.auth.providers.github.enabled) {
-    providers.push('github')
-  }
-
-  return providers
+/**
+ * Get display name for a provider
+ *
+ * @param provider - Provider name
+ * @returns Display name (falls back to capitalized provider name)
+ *
+ * @example
+ * ```ts
+ * getProviderDisplayName('google') // 'Google'
+ * getProviderDisplayName('github') // 'GitHub'
+ * ```
+ */
+export function getProviderDisplayName(provider: string): string {
+  const config = getProviderConfig(provider)
+  return (
+    config?.displayName || provider.charAt(0).toUpperCase() + provider.slice(1)
+  )
 }
 
 /**

@@ -49,19 +49,20 @@ export interface SiteConfig {
 
   /** Authentication configuration */
   auth: {
-    /** OAuth provider settings */
-    providers: {
-      /** Google OAuth */
-      google: {
-        /** Enable/disable Google sign-in */
+    /** OAuth provider settings - supports any Supabase OAuth provider */
+    providers: Record<
+      string,
+      {
+        /** Enable/disable this OAuth provider */
         enabled: boolean
+        /** Display name (defaults to capitalized provider key) */
+        displayName?: string
+        /** OAuth scopes to request (provider-specific) */
+        scopes?: string
+        /** Icon identifier (lucide-react icon name, defaults to provider key) */
+        icon?: string
       }
-      /** GitHub OAuth */
-      github: {
-        /** Enable/disable GitHub sign-in */
-        enabled: boolean
-      }
-    }
+    >
     /** Cloudflare Turnstile CAPTCHA */
     turnstile: {
       /** Enable/disable CAPTCHA (requires VITE_TURNSTILE_SITE_KEY) */
