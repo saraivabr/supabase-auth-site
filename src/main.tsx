@@ -7,6 +7,7 @@ import { routeTree } from './routeTree.gen'
 
 // Import auth provider and theme
 import { AuthProvider } from './lib/auth'
+import { ErrorBoundary } from './components/ErrorBoundary'
 import { injectThemeColors } from './lib/theme'
 
 import './styles.css'
@@ -38,9 +39,11 @@ if (rootElement && !rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement)
   root.render(
     <StrictMode>
-      <AuthProvider>
-        <RouterProvider router={router} />
-      </AuthProvider>
+      <ErrorBoundary>
+        <AuthProvider>
+          <RouterProvider router={router} />
+        </AuthProvider>
+      </ErrorBoundary>
     </StrictMode>,
   )
 }

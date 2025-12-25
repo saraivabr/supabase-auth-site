@@ -16,11 +16,11 @@ interface AuthContextType {
   signUp: (
     email: string,
     password: string,
+    captchaToken?: string,
   ) => Promise<{ error: AuthError | null }>
   signOut: () => Promise<{ error: AuthError | null }>
   signInWithOAuth: (
     provider: Provider,
-    redirectTo?: string,
   ) => Promise<{ error: AuthError | null }>
   signInWithOtp: (
     email: string,
@@ -76,10 +76,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return { error }
   }
 
-  const signUp = async (email: string, password: string) => {
+  const signUp = async (email: string, password: string, captchaToken?: string) => {
     const { error } = await supabase.auth.signUp({
       email,
       password,
+      options: {
+        captchaToken,
+      },
     })
     return { error }
   }
@@ -89,12 +92,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return { error }
   }
 
-  const signInWithOAuth = async (provider: Provider, redirectTo?: string) => {
+  const signInWithOAuth = async (provider: Provider) => {
     // OAuth 回调始终到 /auth/callback，然后由 callback 页面处理最终跳转
     const callbackUrl = new URL('/callback', window.location.origin)
-    if (redirectTo) {
-      callbackUrl.searchParams.set('redirect', redirectTo)
-    }
 
     // Get provider config for custom scopes
     const { getProviderConfig } = await import('./config')

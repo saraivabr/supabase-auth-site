@@ -25,6 +25,7 @@ import type { IconType } from 'react-icons'
 import type { Provider } from '@/lib/auth'
 import { useAuth } from '@/lib/auth'
 import { getProviderConfig, getProviderDisplayName } from '@/lib/config'
+import { ErrorAlert } from '@/components/ErrorAlert'
 import { Button } from '@/components/ui/button'
 
 // Icon component type that supports both lucide and react-icons
@@ -77,13 +78,11 @@ function getProviderIcon(provider: string): IconComponent {
 }
 
 interface SocialLoginButtonsProps {
-  redirectTo?: string
   primaryProvider?: Provider
   showHint?: boolean
 }
 
 export function SocialLoginButtons({
-  redirectTo,
   primaryProvider,
   showHint = false,
 }: SocialLoginButtonsProps) {
@@ -100,7 +99,7 @@ export function SocialLoginButtons({
     setLoading(provider)
     setError(null)
 
-    const { error: authError } = await signInWithOAuth(provider, redirectTo)
+    const { error: authError } = await signInWithOAuth(provider)
 
     if (authError) {
       setError(authError.message)
@@ -126,14 +125,7 @@ export function SocialLoginButtons({
         </div>
       )}
 
-      {error && (
-        <div
-          role="alert"
-          className="rounded-md border border-destructive/30 bg-destructive/10 px-4 py-3 text-sm text-destructive"
-        >
-          {error}
-        </div>
-      )}
+      <ErrorAlert message={error || ''} />
 
       <div className="grid gap-3">
         {orderedProviders.map((provider) => {

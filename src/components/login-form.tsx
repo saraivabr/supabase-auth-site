@@ -9,10 +9,9 @@ import { EmailPasswordLoginForm } from '@/components/auth/EmailPasswordLoginForm
 type LoginMethod = 'default' | 'email-otp'
 
 interface LoginFormProps extends React.ComponentPropsWithoutRef<'div'> {
-  redirectTo?: string
 }
 
-export function LoginForm({ className, redirectTo, ...props }: LoginFormProps) {
+export function LoginForm({ className, ...props }: LoginFormProps) {
   const [loginMethod, setLoginMethod] = useState<LoginMethod>('default')
 
   const handleBackToDefault = () => {
@@ -31,7 +30,7 @@ export function LoginForm({ className, redirectTo, ...props }: LoginFormProps) {
         {loginMethod === 'default' ? (
           <div className="grid gap-4">
             <div className="grid gap-3">
-              <SocialLoginButtons redirectTo={redirectTo} />
+              <SocialLoginButtons />
 
               <Button
                 type="button"
@@ -50,13 +49,10 @@ export function LoginForm({ className, redirectTo, ...props }: LoginFormProps) {
               </span>
             </div>
 
-            <EmailPasswordLoginForm redirectTo={redirectTo} />
+            <EmailPasswordLoginForm />
           </div>
         ) : (
-          <EmailOtpLoginForm
-            redirectTo={redirectTo}
-            onBack={handleBackToDefault}
-          />
+          <EmailOtpLoginForm onBack={handleBackToDefault} />
         )}
       </div>
     </div>

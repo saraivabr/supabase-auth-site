@@ -1,10 +1,11 @@
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { ArrowLeft } from 'lucide-react'
-import { Turnstile } from '@marsidev/react-turnstile'
 import { useAuth } from '@/lib/auth'
-import { siteConfig } from '@/lib/config'
+import { performPostLoginRedirect } from '@/lib/redirect'
 import { TURNSTILE_SITE_KEY } from '@/lib/turnstile'
+import { TurnstileWidget, type TurnstileWidgetRef } from '@/components/auth/TurnstileWidget'
+import { ErrorAlert } from '@/components/ErrorAlert'
 import { AuthLayout } from '@/layouts/AuthLayout'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -15,7 +16,6 @@ export const Route = createFileRoute('/verify-otp')({
   validateSearch: (search: Record<string, unknown>) => {
     return {
       email: search.email as string | undefined,
-      redirect: search.redirect as string | undefined,
     }
   },
 })
@@ -23,18 +23,20 @@ export const Route = createFileRoute('/verify-otp')({
 function VerifyOtpPage() {
   const navigate = useNavigate()
   const { verifyOtp, user } = useAuth()
-  const { email, redirect } = Route.useSearch()
+  const { email } = Route.useSearch()
+  const turnstileRef = useRef<TurnstileWidgetRef>(null)
   const [otp, setOtp] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
+
   const handleBackToSignIn = () => {
     navigate({ to: '/signin' })
   }
 
   // If already logged in, redirect to destination
   if (user) {
-    window.location.href = redirect || siteConfig.redirects.afterSignIn
+    performPostLoginRedirect(navigate)
     return null
   }
 
@@ -65,10 +67,10 @@ function VerifyOtpPage() {
       setError(verifyError.message)
       setLoading(false)
       // Reset Turnstile
-      setTurnstileToken(null)
+      turnstileRef.current?.reset()
     } else {
       // Verification successful, redirect to destination
-      window.location.href = redirect || siteConfig.redirects.afterSignIn
+      performPostLoginRedirect(navigate)
     }
   }
 
@@ -88,14 +90,7 @@ function VerifyOtpPage() {
         {/* Form Content */}
         <form onSubmit={handleSubmit}>
           <div className="grid gap-4">
-            {error && (
-              <div
-                role="alert"
-                className="rounded-md border border-destructive/30 bg-destructive/10 px-4 py-3 text-sm text-destructive"
-              >
-                {error}
-              </div>
-            )}
+            <ErrorAlert message={error} />
 
             <div className="grid gap-2">
               <Label htmlFor="otp">
@@ -115,16 +110,11 @@ function VerifyOtpPage() {
               />
             </div>
 
-            {TURNSTILE_SITE_KEY && (
-              <div className="flex justify-center">
-                <Turnstile
-                  siteKey={TURNSTILE_SITE_KEY}
-                  onSuccess={(token) => setTurnstileToken(token)}
-                  onError={() => setTurnstileToken(null)}
-                  onExpire={() => setTurnstileToken(null)}
-                />
-              </div>
-            )}
+            <TurnstileWidget
+              ref={turnstileRef}
+              onSuccess={setTurnstileToken}
+              onTokenCleared={() => setTurnstileToken(null)}
+            />
 
             <Button
               type="submit"

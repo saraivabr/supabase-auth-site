@@ -1,61 +1,79 @@
-/**
- * Redirect URL handling utilities
- *
- * Manages storing and retrieving redirect URLs during the authentication flow.
- * Uses sessionStorage to preserve the user's intended destination across auth redirects.
- */
+const STORAGE_KEY = 'auth_redirect'
 
-const AUTH_REDIRECT_KEY = 'auth_redirect_url'
+export const getAuthRedirect = () => {
+  return sessionStorage.getItem(STORAGE_KEY) || undefined
+}
+
+export const setAuthRedirect = (redirect: string) => {
+  sessionStorage.setItem(STORAGE_KEY, redirect)
+}
+
+export const clearAuthRedirect = () => {
+  sessionStorage.removeItem(STORAGE_KEY)
+}
 
 /**
- * Store a redirect URL for use after authentication
- *
- * @param url - The URL to redirect to after sign-in
- *
- * @example
- * ```ts
- * // Before redirecting to signin page:
- * setAuthRedirect('/dashboard/profile')
- * ```
+ * 验证 referer 是否是有效的外部跳转地址
+ * - 必须是有效的 URL
+ * - 不能是当前域名的认证相关页面
  */
-export function setAuthRedirect(url: string): void {
-  if (typeof window !== 'undefined') {
-    sessionStorage.setItem(AUTH_REDIRECT_KEY, url)
+export const isValidExternalReferer = (referer: string): boolean => {
+  if (!referer) return false
+
+  try {
+    const refererUrl = new URL(referer)
+    const currentOrigin = window.location.origin
+
+    // 如果是同域名
+    if (refererUrl.origin === currentOrigin) {
+      // 排除认证相关页面
+      const authPaths = ['/signin', '/verify-otp', '/callback']
+      return !authPaths.some((path) => refererUrl.pathname.startsWith(path))
+    }
+
+    // 外部域名，允许
+    return true
+  } catch {
+    return false
   }
 }
 
 /**
- * Get the stored redirect URL
- *
- * @returns The stored redirect URL, or null if not set
- *
- * @example
- * ```ts
- * // After successful sign-in:
- * const redirectUrl = getAuthRedirect()
- * if (redirectUrl) {
- *   window.location.href = redirectUrl
- * }
- * ```
+ * 获取最终的跳转地址
+ * 优先级：query 参数 > referer > sessionStorage
  */
-export function getAuthRedirect(): string | null {
-  if (typeof window !== 'undefined') {
-    return sessionStorage.getItem(AUTH_REDIRECT_KEY)
+export const resolveRedirect = (queryRedirect?: string): string | undefined => {
+  // 1. 优先使用 query 参数
+  if (queryRedirect) {
+    setAuthRedirect(queryRedirect)
+    return queryRedirect
   }
-  return null
+
+  // 2. 尝试使用 referer
+  const referer = document.referrer
+  if (isValidExternalReferer(referer)) {
+    setAuthRedirect(referer)
+    return referer
+  }
+
+  // 3. 从 sessionStorage 读取
+  return getAuthRedirect()
 }
 
 /**
- * Clear the stored redirect URL
- *
- * @example
- * ```ts
- * // After using the redirect:
- * clearAuthRedirect()
- * ```
+ * 执行登录后的跳转
+ * - 如果有存储的跳转地址，清除并跳转到该地址
+ * - 否则跳转到默认页面 /console/apps
  */
-export function clearAuthRedirect(): void {
-  if (typeof window !== 'undefined') {
-    sessionStorage.removeItem(AUTH_REDIRECT_KEY)
+export const performPostLoginRedirect = (
+  navigate: (opts: { to: string }) => void,
+) => {
+  const redirect = getAuthRedirect()
+
+  if (redirect) {
+    clearAuthRedirect()
+    window.location.href = redirect
+  } else {
+    navigate({ to: '/console/apps' })
   }
 }

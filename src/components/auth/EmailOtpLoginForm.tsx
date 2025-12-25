@@ -1,23 +1,23 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { useNavigate } from '@tanstack/react-router'
-import { Turnstile } from '@marsidev/react-turnstile'
 import { useAuth } from '@/lib/auth'
 import { TURNSTILE_SITE_KEY } from '@/lib/turnstile'
+import { TurnstileWidget, type TurnstileWidgetRef } from '@/components/auth/TurnstileWidget'
+import { ErrorAlert } from '@/components/ErrorAlert'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 
 interface EmailOtpLoginFormProps {
-  redirectTo?: string
   onBack?: () => void
 }
 
 export function EmailOtpLoginForm({
-  redirectTo,
   onBack,
 }: EmailOtpLoginFormProps) {
   const navigate = useNavigate()
   const { signInWithOtp } = useAuth()
+  const turnstileRef = useRef<TurnstileWidgetRef>(null)
   const [email, setEmail] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
@@ -43,12 +43,12 @@ export function EmailOtpLoginForm({
       setError(otpError.message)
       setLoading(false)
       // Reset Turnstile
-      setTurnstileToken(null)
+      turnstileRef.current?.reset()
     } else {
       // Navigate to OTP verification page
       navigate({
         to: '/verify-otp',
-        search: { email, redirect: redirectTo },
+        search: { email },
       })
     }
   }
@@ -67,14 +67,7 @@ export function EmailOtpLoginForm({
           </Button>
         )}
 
-        {error && (
-          <div
-            role="alert"
-            className="rounded-md border border-destructive/30 bg-destructive/10 px-4 py-3 text-sm text-destructive"
-          >
-            {error}
-          </div>
-        )}
+        <ErrorAlert message={error} />
 
         <div className="grid gap-2">
           <Label htmlFor="email">Email</Label>
@@ -89,16 +82,11 @@ export function EmailOtpLoginForm({
           />
         </div>
 
-        {TURNSTILE_SITE_KEY && (
-          <div className="flex justify-center">
-            <Turnstile
-              siteKey={TURNSTILE_SITE_KEY}
-              onSuccess={(token) => setTurnstileToken(token)}
-              onError={() => setTurnstileToken(null)}
-              onExpire={() => setTurnstileToken(null)}
-            />
-          </div>
-        )}
+        <TurnstileWidget
+          ref={turnstileRef}
+          onSuccess={setTurnstileToken}
+          onTokenCleared={() => setTurnstileToken(null)}
+        />
 
         <Button
           type="submit"

@@ -1,27 +1,26 @@
-import { useState } from 'react'
-import { Turnstile } from '@marsidev/react-turnstile'
+import { useRef, useState } from 'react'
+import { useNavigate } from '@tanstack/react-router'
 import { useAuth } from '@/lib/auth'
-import { siteConfig } from '@/lib/config'
 import { TURNSTILE_SITE_KEY } from '@/lib/turnstile'
+import { performPostLoginRedirect } from '@/lib/redirect'
+import { TurnstileWidget, type TurnstileWidgetRef } from '@/components/auth/TurnstileWidget'
+import { ErrorAlert } from '@/components/ErrorAlert'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 
-interface EmailPasswordLoginFormProps {
-  redirectTo?: string
-}
+interface EmailPasswordLoginFormProps {}
 
-export function EmailPasswordLoginForm({
-  redirectTo,
-}: EmailPasswordLoginFormProps) {
+export function EmailPasswordLoginForm({}: EmailPasswordLoginFormProps) {
+  const navigate = useNavigate()
   const { signIn } = useAuth()
+  const turnstileRef = useRef<TurnstileWidgetRef>(null)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
   const [showTurnstile, setShowTurnstile] = useState(false)
-  const [turnstileKey, setTurnstileKey] = useState(0)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -29,17 +28,16 @@ export function EmailPasswordLoginForm({
     setLoading(true)
     setError('')
 
-    const { error: authError } = await signIn(email, password, turnstileToken!)
+    const { error: authError } = await signIn(email, password, turnstileToken || undefined)
 
     if (authError) {
       setError(authError.message)
       setLoading(false)
-      // Reset Turnstile to allow retry - force remount to generate new token
-      setTurnstileToken(null)
-      setTurnstileKey((prev) => prev + 1)
+      // Reset Turnstile to allow retry
+      turnstileRef.current?.reset()
     } else {
       // Redirect after successful login
-      window.location.href = redirectTo || siteConfig.redirects.afterSignIn
+      performPostLoginRedirect(navigate)
     }
   }
 
@@ -53,14 +51,7 @@ export function EmailPasswordLoginForm({
   return (
     <form onSubmit={handleSubmit}>
       <div className="grid gap-6">
-        {error && (
-          <div
-            role="alert"
-            className="rounded-md border border-destructive/30 bg-destructive/10 px-4 py-3 text-sm text-destructive"
-          >
-            {error}
-          </div>
-        )}
+        <ErrorAlert message={error} />
 
         <div className="grid gap-2">
           <Label htmlFor="email">Email</Label>
@@ -89,16 +80,12 @@ export function EmailPasswordLoginForm({
           />
         </div>
 
-        {TURNSTILE_SITE_KEY && showTurnstile && (
-          <div className="flex justify-center">
-            <Turnstile
-              key={turnstileKey}
-              siteKey={TURNSTILE_SITE_KEY}
-              onSuccess={(token) => setTurnstileToken(token)}
-              onError={() => setTurnstileToken(null)}
-              onExpire={() => setTurnstileToken(null)}
-            />
-          </div>
+        {showTurnstile && (
+          <TurnstileWidget
+            ref={turnstileRef}
+            onSuccess={setTurnstileToken}
+            onTokenCleared={() => setTurnstileToken(null)}
+          />
         )}
 
         <Button
