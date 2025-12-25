@@ -30,6 +30,12 @@ A generic, fully configurable authentication site powered by Supabase. Deploy yo
   - Session management
   - OAuth consent flow
 
+- **Cross-Domain SSO**
+  - Cookie-based session sharing across subdomains
+  - Automatic JWT extraction for backend APIs
+  - Works seamlessly with auth.example.com, console.example.com, etc.
+  - See [CROSS_DOMAIN_AUTH.md](./docs/CROSS_DOMAIN_AUTH.md) for details
+
 ## Quick Start
 
 ### 1. Clone and Install
@@ -53,9 +59,14 @@ Edit `.env` and add your Supabase credentials:
 ```env
 VITE_SUPABASE_URL=https://your-project.supabase.co
 VITE_SUPABASE_ANON_KEY=your-anon-key-here
+
+# For cross-domain SSO (optional)
+VITE_COOKIE_DOMAIN=.example.com  # Enables session sharing across subdomains
 ```
 
 Get these values from: [Supabase Dashboard](https://app.supabase.com) → Your Project → Settings → API
+
+**For SSO across subdomains**: Set `VITE_COOKIE_DOMAIN` to your root domain (e.g., `.example.com`). See [CROSS_DOMAIN_AUTH.md](./docs/CROSS_DOMAIN_AUTH.md) for complete setup guide.
 
 ### 3. Customize Branding
 
@@ -212,6 +223,8 @@ supabase-auth-site/
 ├── site.config.ts              # Your customization file
 ├── site.config.default.ts      # Example config with all options
 ├── site.config.types.ts        # TypeScript type definitions
+├── docs/
+|   |---CROSS_DOMAIN_AUTH.md        # Cross-domain SSO setup guide
 ├── src/
 │   ├── components/
 │   │   ├── auth/               # Auth form components
@@ -224,7 +237,9 @@ supabase-auth-site/
 │   ├── lib/
 │   │   ├── auth.tsx            # Auth context provider
 │   │   ├── config.ts           # Config utilities
-│   │   ├── supabase.ts         # Supabase client
+│   │   ├── supabase.ts         # Supabase client (with cookie storage)
+│   │   ├── cookieStorage.ts    # Cookie storage adapter for SSO
+│   │   ├── apiClient.ts        # API client with automatic JWT
 │   │   ├── theme.ts            # Theme injection
 │   │   ├── redirect.ts         # Redirect handling
 │   │   └── route-guards.ts     # Route protection
@@ -305,7 +320,9 @@ MIT License - feel free to use this for your projects!
 
 ## Support
 
-- Documentation: [CONFIG.md](./CONFIG.md)
+- Documentation:
+  - [CONFIG.md](./docs/CONFIG.md) - Site configuration reference
+  - [CROSS_DOMAIN_AUTH.md](./docs/CROSS_DOMAIN_AUTH.md) - Cross-domain SSO setup guide
 - Supabase Docs: [https://supabase.com/docs](https://supabase.com/docs)
 - TanStack Router: [https://tanstack.com/router](https://tanstack.com/router)
 - shadcn/ui: [https://ui.shadcn.com](https://ui.shadcn.com)

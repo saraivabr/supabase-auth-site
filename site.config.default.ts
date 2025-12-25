@@ -104,7 +104,7 @@ export const defaultConfig: SiteConfig = {
 
   // Post-authentication redirects
   redirects: {
-    afterSignIn: '/dashboard',   // Where to redirect after successful sign-in
+    afterSignIn: '/',            // Where to redirect after successful sign-in
     afterSignOut: '/signin',     // Where to redirect after sign-out
   },
 }

@@ -234,10 +234,10 @@ Configure post-authentication redirect behavior.
 - **Type**: `string`
 - **Required**: Yes
 - **Description**: Where to redirect users after successful sign-in
-- **Default**: `"/dashboard"`
+- **Default**: `"/"`
 - **Usage**: Absolute path or full URL
 - **Examples**:
-  - `"/dashboard"`
+  - `"/"` - Root page (default, shows user info)
   - `"/app"`
   - `"https://app.example.com/home"`
 
@@ -270,7 +270,7 @@ export const siteConfig: SiteConfig = {
     copyright: '© 2025 My App',
   },
   redirects: {
-    afterSignIn: '/dashboard',
+    afterSignIn: '/',  // Root page shows user info
     afterSignOut: '/signin',
   },
 }

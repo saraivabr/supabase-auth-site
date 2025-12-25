@@ -91,7 +91,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const signInWithOAuth = async (provider: Provider, redirectTo?: string) => {
     // OAuth 回调始终到 /auth/callback，然后由 callback 页面处理最终跳转
-    const callbackUrl = new URL('/auth/callback', window.location.origin)
+    const callbackUrl = new URL('/callback', window.location.origin)
     if (redirectTo) {
       callbackUrl.searchParams.set('redirect', redirectTo)
     }
