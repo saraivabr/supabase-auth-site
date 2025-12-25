@@ -69,11 +69,10 @@ export const performPostLoginRedirect = (
   navigate: (opts: { to: string }) => void,
 ) => {
   const redirect = getAuthRedirect()
-
   if (redirect) {
     clearAuthRedirect()
     window.location.href = redirect
   } else {
-    navigate({ to: '/console/apps' })
+    navigate({ to: '/' })
   }
 }
