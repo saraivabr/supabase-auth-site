@@ -19,21 +19,20 @@ export const siteConfig: SiteConfig = {
 
   // Uncomment and customize the sections you want to override:
 
-  // site: {
-  //   name: 'Your App Name',
-  //   slogan: 'Your Slogan Here',
-  //   description: 'Your description',
-  //   copyright: '© 2025 Your Company',
-  // },
+  site: {
+    name: 'Supabase Auth Site',
+    slogan: 'Secure Authentication for Your Projects',
+    description: 'A customizable authentication site template powered by Supabase and TanStack.',
+    copyright: `© ${new Date().getFullYear()} Supabase Auth Site`,
+  },
 
-  // branding: {
-  //   logo: {
-  //     url: '/your-logo.png',  // or use text/icon
-  //     // text: 'Your App',
-  //     // icon: 'Y',
-  //   },
-  //   favicon: '/favicon.ico',
-  // },
+  branding: {
+    logo: {
+      text: 'Auth Site',
+      icon: 'S',
+    },
+    favicon: '/favicon.svg',
+  },
 
   // theme: {
   //   brandColor: '#your-color',
