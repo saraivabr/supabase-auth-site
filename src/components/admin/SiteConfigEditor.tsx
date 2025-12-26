@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { Link } from '@tanstack/react-router'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Button } from '@/components/ui/button'
 import { 
@@ -118,75 +117,43 @@ export function SiteConfigEditor({ config, onSave, isLoading }: SiteConfigEditor
               )}
 
               {activeTab === 'site' && (
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Site Information</CardTitle>
-                    <CardDescription>
-                      Basic information about your site
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <SiteInfoForm
-                      initialData={config.site}
-                      onSave={(site) => handleSave({ site })}
-                      isLoading={isLoading}
-                    />
-                  </CardContent>
-                </Card>
+                <div className="rounded-lg border bg-card text-card-foreground shadow-sm p-6">
+                  <SiteInfoForm
+                    initialData={config.site}
+                    onSave={(site) => handleSave({ site })}
+                    isLoading={isLoading}
+                  />
+                </div>
               )}
 
               {activeTab === 'branding' && (
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Branding</CardTitle>
-                    <CardDescription>
-                      Customize your site's logo and favicon
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <BrandingForm
-                      initialData={config.branding}
-                      onSave={(branding) => handleSave({ branding })}
-                      isLoading={isLoading}
-                    />
-                  </CardContent>
-                </Card>
+                <div className="rounded-lg border bg-card text-card-foreground shadow-sm p-6">
+                  <BrandingForm
+                    initialData={config.branding}
+                    onSave={(branding) => handleSave({ branding })}
+                    isLoading={isLoading}
+                  />
+                </div>
               )}
 
               {activeTab === 'theme' && (
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Theme Colors</CardTitle>
-                    <CardDescription>
-                      Customize your site's color scheme
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <ThemeForm
-                      initialData={config.theme}
-                      onSave={(theme) => handleSave({ theme })}
-                      isLoading={isLoading}
-                    />
-                  </CardContent>
-                </Card>
+                <div className="rounded-lg border bg-card text-card-foreground shadow-sm p-6">
+                  <ThemeForm
+                    initialData={config.theme}
+                    onSave={(theme) => handleSave({ theme })}
+                    isLoading={isLoading}
+                  />
+                </div>
               )}
 
               {activeTab === 'auth' && (
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Authentication Settings</CardTitle>
-                    <CardDescription>
-                      Configure authentication providers and options
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <AuthConfigForm
-                      initialData={config.auth}
-                      onSave={(auth) => handleSave({ auth })}
-                      isLoading={isLoading}
-                    />
-                  </CardContent>
-                </Card>
+                <div className="rounded-lg border bg-card text-card-foreground shadow-sm p-6">
+                  <AuthConfigForm
+                    initialData={config.auth}
+                    onSave={(auth) => handleSave({ auth })}
+                    isLoading={isLoading}
+                  />
+                </div>
               )}
             </div>
           </main>
