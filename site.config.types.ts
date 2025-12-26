@@ -68,6 +68,13 @@ export interface SiteConfig {
       /** Enable/disable CAPTCHA (requires VITE_TURNSTILE_SITE_KEY) */
       enabled: boolean
     }
+    /** Session cookie configuration */
+    cookieOptions?: {
+      /** Cookie expiration in days (default: 365) */
+      expires?: number
+      /** Cookie sameSite policy (default: 'Lax') */
+      sameSite?: 'Lax' | 'Strict' | 'None'
+    }
   }
 
   /** Feature toggles */

@@ -14,6 +14,7 @@
 
 import Cookies from 'js-cookie'
 import type { SupportedStorage } from '@supabase/supabase-js'
+import { siteConfig } from '../../site.config'
 
 /**
  * Cookie domain for cross-subdomain sharing
@@ -60,10 +61,10 @@ export const cookieStorage: SupportedStorage = {
    */
   setItem: (key: string, value: string): void => {
     Cookies.set(key, value, {
-      expires: 365, // 1 year
+      expires: siteConfig.auth.cookieOptions?.expires ?? 365,
       path: '/',
       domain: COOKIE_DOMAIN,
-      sameSite: 'Lax', // CSRF protection
+      sameSite: (siteConfig.auth.cookieOptions?.sameSite as any) ?? 'Lax',
       secure: isProduction && isSecure, // HTTPS only in production
     })
   },

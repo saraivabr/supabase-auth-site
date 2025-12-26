@@ -1,8 +1,9 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import { supabase } from './supabase'
-import type { AuthError, Session, User } from '@supabase/supabase-js'
+import type { AuthError, Session, User, Provider } from '@supabase/supabase-js'
+import { getEnabledProviders as getConfiguredProviders, getProviderConfig } from './config'
 
-export type Provider = string
+export type { Provider }
 
 interface AuthContextType {
   user: User | null
@@ -97,11 +98,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const callbackUrl = new URL('/callback', window.location.origin)
 
     // Get provider config for custom scopes
-    const { getProviderConfig } = await import('./config')
     const providerConfig = getProviderConfig(provider)
 
     const { error } = await supabase.auth.signInWithOAuth({
-      provider: provider as any,
+      provider: provider,
       options: {
         redirectTo: callbackUrl.toString(),
         scopes: providerConfig?.scopes,
@@ -139,10 +139,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const getEnabledProviders = async (): Promise<Array<Provider>> => {
     // Import config dynamically to avoid circular dependency
-    const { getEnabledProviders: getConfiguredProviders } = await import(
-      './config'
-    )
-    return getConfiguredProviders()
+    return (getConfiguredProviders() as Provider[])
   }
 
   const value = {

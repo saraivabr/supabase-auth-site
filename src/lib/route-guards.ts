@@ -1,5 +1,7 @@
 import { redirect } from '@tanstack/react-router'
 import { supabase } from './supabase'
+import { siteConfig } from './config'
+
 
 /**
  * Route Guard: Require Authentication
@@ -64,7 +66,6 @@ export async function requireGuest(redirectTo?: string): Promise<void> {
 
   if (session) {
     // Import dynamically to avoid circular dependency
-    const { siteConfig } = await import('./config')
     const destination = redirectTo || siteConfig.redirects.afterSignIn
 
     throw redirect({ to: destination })

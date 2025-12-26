@@ -78,6 +78,11 @@ export const defaultConfig: SiteConfig = {
     turnstile: {
       enabled: false,  // Set to true if VITE_TURNSTILE_SITE_KEY is configured
     },
+    // Session cookie configuration
+    cookieOptions: {
+      expires: 365,
+      sameSite: 'Lax',
+    },
   },
 
   // Feature toggles
