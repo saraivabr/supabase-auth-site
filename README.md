@@ -2,12 +2,27 @@
 
 A generic, fully configurable authentication site powered by Supabase. Deploy your own branded auth pages in minutes with zero code changes required.
 
-<div align="center">
+<p align="center">
+  <img src="https://github.com/saltbo/supabase-auth-site/actions/workflows/deploy.yml/badge.svg" alt="Deploy to GitHub Pages">
+</p>
 
-[![Deploy to Cloudflare Pages](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/saltbo/supabase-auth-site)
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fsaltbo%2Fsupabase-auth-site)
-
-</div>
+<p align="center">
+  <a href="https://deploy.workers.cloudflare.com/?url=https://github.com/saltbo/supabase-auth-site">
+    <img src="https://deploy.workers.cloudflare.com/button" alt="Deploy to Cloudflare Pages" height="32">
+  </a>
+  &nbsp;
+  <a href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fsaltbo%2Fsupabase-auth-site">
+    <img src="https://vercel.com/button" alt="Deploy with Vercel" height="32">
+  </a>
+  &nbsp;
+  <a href="https://app.netlify.com/start/deploy?repository=https://github.com/saltbo/supabase-auth-site">
+    <img src="https://www.netlify.com/img/deploy/button.svg" alt="Deploy to Netlify" height="32">
+  </a>
+  &nbsp;
+  <a href="https://render.com/deploy?repo=https://github.com/saltbo/supabase-auth-site">
+    <img src="https://render.com/images/deploy-to-render-button.svg" alt="Deploy to Render" height="32">
+  </a>
+</p>
 
 ## Features
 
@@ -104,9 +119,23 @@ See [CONFIG.md](./docs/CONFIG.md) for the full configuration guide.
    - Output directory: `dist`
 5. **Environment Variables:** Add your `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`.
 
-### Vercel / Netlify
+### Vercel / Netlify / Render
 
-Similar to Cloudflare, connect your repo, use the default Vite build settings (`npm run build`, `dist`), and add environment variables.
+Click the deploy buttons above for the easiest setup.
+Alternatively, connect your repository manually and use these settings:
+- **Build Command:** `npm run build`
+- **Output Directory:** `dist`
+- **Environment Variables:** Add `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`.
+
+### GitHub Pages
+
+This project includes a GitHub Action for automated deployment.
+
+1. Go to your repository **Settings** -> **Pages**.
+2. Under "Build and deployment", set **Source** to **GitHub Actions**.
+3. Go to **Settings** -> **Secrets and variables** -> **Actions**.
+4. Add repository secrets: `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`.
+5. Push to `main` to trigger deployment.
 
 ### Docker
 
