@@ -96,7 +96,7 @@ export function SiteConfigEditor({ config, onSave, isLoading }: SiteConfigEditor
 
       {/* Main Content */}
       <main className="flex-1 ml-64 p-8 lg:p-10">
-        <div className="max-w-2xl mx-auto space-y-8">
+        <div className="max-w-2xl space-y-8">
           {/* Header */}
           <div>
             <h1 className="text-2xl font-bold tracking-tight text-foreground">
