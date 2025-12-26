@@ -6,7 +6,9 @@ import { Button } from '@/components/ui/button'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Separator } from '@/components/ui/separator'
 import { Badge } from '@/components/ui/badge'
-import { LogOut, Mail, User, Clock, Shield, Key } from 'lucide-react'
+import { LogOut, Mail, User, Clock, Shield, Key, Settings } from 'lucide-react'
+import { isUserAdmin } from '@/lib/config-service'
+import { Link } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/')({
   beforeLoad: async () => {
@@ -23,6 +25,7 @@ export const Route = createFileRoute('/')({
 function HomePage() {
   const navigate = useNavigate()
   const { user, session, loading, signOut } = useAuth()
+  const isAdmin = isUserAdmin(user?.email)
 
   const handleSignOut = async () => {
     await signOut()
@@ -120,15 +123,25 @@ function HomePage() {
               </div>
             </div>
 
-            {/* Sign Out Button */}
-            <Button
-              onClick={handleSignOut}
-              variant="outline"
-              className="md:self-start"
-            >
-              <LogOut className="h-4 w-4 mr-2" />
-              Sign Out
-            </Button>
+            {/* Actions */}
+            <div className="flex flex-col sm:flex-row gap-3 md:self-start">
+              {isAdmin && (
+                <Button asChild variant="default">
+                  <Link to="/admin">
+                    <Settings className="h-4 w-4 mr-2" />
+                    Admin Panel
+                  </Link>
+                </Button>
+              )}
+              
+              <Button
+                onClick={handleSignOut}
+                variant="outline"
+              >
+                <LogOut className="h-4 w-4 mr-2" />
+                Sign Out
+              </Button>
+            </div>
           </div>
         </Card>
 
