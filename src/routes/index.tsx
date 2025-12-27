@@ -184,7 +184,7 @@ function HomePage() {
                <div className="flex items-center justify-between bg-muted/50 p-3 rounded-lg border border-muted">
                  <span className="font-medium capitalize flex items-center gap-2">
                    <Globe className="h-4 w-4 opacity-50" />
-                   {systemInfo.browser}
+                   {user.app_metadata?.provider || 'Email'}
                  </span>
                  <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
                </div>
@@ -227,7 +227,7 @@ function HomePage() {
                 <span className="font-medium">System</span>
               </div>
               <p className="text-2xl font-bold">v{import.meta.env.APP_VERSION}</p>
-              <p className="text-xs text-muted-foreground mt-1">{systemInfo.os}</p>
+              <p className="text-xs text-muted-foreground mt-1">{systemInfo.os} • {systemInfo.browser}</p>
            </Card>
         </div>
 
