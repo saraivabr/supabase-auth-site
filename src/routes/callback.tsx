@@ -22,7 +22,7 @@ function OAuthCallbackPage() {
       performPostLoginRedirect(navigate)
     } else {
       // No session, show error
-      setError('No session found. Please try signing in again.')
+      setError('Nenhuma sessão encontrada. Por favor, tente fazer login novamente.')
     }
   }, [user, loading, navigate])
 
@@ -31,7 +31,7 @@ function OAuthCallbackPage() {
       <ErrorPage
         type="auth"
         message={error}
-        actionLabel="Return to sign in"
+        actionLabel="Voltar para o login"
         onAction={() => navigate({ to: '/signin' })}
       />
     )
@@ -42,7 +42,7 @@ function OAuthCallbackPage() {
       <div className="text-center">
         <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
         <p className="mt-4 text-muted-foreground">
-          Completing authentication...
+          Completando autenticação...
         </p>
       </div>
     </div>
