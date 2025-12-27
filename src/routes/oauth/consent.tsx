@@ -82,7 +82,7 @@ function OAuthConsentPage() {
     if (!authorization_id) {
       return (
         <AuthorizationError
-          error="Missing authorization ID parameter"
+          error="Parâmetro de ID de autorização ausente"
           onSignOut={handleSignOut}
         />
       )
@@ -90,7 +90,7 @@ function OAuthConsentPage() {
 
     // Loading state
     if (isLoading) {
-      return <AuthorizationLoading message="Loading authorization details..." />
+      return <AuthorizationLoading message="Carregando detalhes de autorização..." />
     }
 
     // Error state
@@ -111,7 +111,7 @@ function OAuthConsentPage() {
             onSignOut={handleSignOut}
           />
           <p className="text-center text-[10px] sm:text-xs md:text-sm text-muted-foreground mt-4 sm:mt-6 leading-tight">
-            By continuing, you agree to share your information with this application.
+            Ao continuar, você concorda em compartilhar suas informações com este aplicativo.
           </p>
         </>
       )
@@ -119,7 +119,7 @@ function OAuthConsentPage() {
 
     // Consent form (authDetails must exist at this point)
     if (!authDetails) {
-      return <AuthorizationLoading message="Loading authorization details..." />
+      return <AuthorizationLoading message="Carregando detalhes de autorização..." />
     }
 
     return (
@@ -132,7 +132,7 @@ function OAuthConsentPage() {
           processing={isPending}
         />
         <p className="text-center text-[10px] sm:text-xs md:text-sm text-muted-foreground mt-4 sm:mt-6 leading-tight">
-          By continuing, you agree to share your information with this application.
+          Ao continuar, você concorda em compartilhar suas informações com este aplicativo.
         </p>
       </>
     )

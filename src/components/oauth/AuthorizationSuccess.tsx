@@ -59,10 +59,10 @@ export function AuthorizationSuccess({
       {/* Success Title */}
       <div className="text-center space-y-2">
         <h3 className="text-xl sm:text-2xl font-semibold text-green-900 dark:text-green-100">
-          Authorization successful
+          Autorização bem-sucedida
         </h3>
         <p className="text-sm text-green-800 dark:text-green-300">
-          You will be redirected shortly
+          Você será redirecionado em breve
         </p>
       </div>
 
@@ -87,7 +87,7 @@ export function AuthorizationSuccess({
         </Avatar>
         <div className="flex flex-col">
           <p className="text-xs sm:text-sm font-medium text-gray-900 dark:text-gray-100">
-            Signed in as
+            Conectado como
           </p>
           <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 truncate max-w-[200px] sm:max-w-none">{userEmail}</p>
         </div>
@@ -100,7 +100,7 @@ export function AuthorizationSuccess({
         {/* Return to App Button */}
         <Button asChild size="lg" className="w-full h-10 sm:h-11 text-sm sm:text-base">
           <a href={redirectUrl} rel="external">
-            Return to Application
+            Voltar para o Aplicativo
           </a>
         </Button>
 
@@ -113,7 +113,7 @@ export function AuthorizationSuccess({
             className="w-full h-10 sm:h-11 text-sm sm:text-base"
           >
             <LogOut className="mr-2 h-3.5 w-3.5 sm:h-4 sm:w-4" />
-            Sign Out
+            Sair
           </Button>
         )}
       </div>

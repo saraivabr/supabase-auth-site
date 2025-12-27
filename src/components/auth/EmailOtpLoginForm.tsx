@@ -28,7 +28,7 @@ export function EmailOtpLoginForm({
     e.preventDefault()
 
     if (isTurnstileEnabled(config) && !turnstileToken) {
-      setError('Please complete the verification')
+      setError('Por favor, complete a verificação')
       return
     }
 
@@ -64,7 +64,7 @@ export function EmailOtpLoginForm({
             onClick={onBack}
             className="w-fit px-0 text-sm text-muted-foreground hover:text-foreground"
           >
-            ← Back to options
+            ← Voltar para opções
           </Button>
         )}
 
@@ -75,7 +75,7 @@ export function EmailOtpLoginForm({
           <Input
             id="email"
             type="email"
-            placeholder="name@example.com"
+            placeholder="nome@exemplo.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             disabled={loading}
@@ -97,7 +97,7 @@ export function EmailOtpLoginForm({
           {loading ? (
             <div className="h-5 w-5 animate-spin rounded-full border-2 border-current border-t-transparent" />
           ) : (
-            'Send verification code'
+            'Enviar código de verificação'
           )}
         </Button>
       </div>

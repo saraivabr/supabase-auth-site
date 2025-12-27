@@ -29,11 +29,11 @@ export function ConsentForm({
     // Map common OAuth scopes to readable names
     const scopeMap: Record<string, string> = {
       'openid': 'OpenID Connect',
-      'profile': 'Access your profile information',
-      'email': 'Access your email address',
-      'offline_access': 'Offline access to your data',
-      'read': 'Read your data',
-      'write': 'Modify your data',
+      'profile': 'Acessar suas informações de perfil',
+      'email': 'Acessar seu endereço de email',
+      'offline_access': 'Acesso offline aos seus dados',
+      'read': 'Ler seus dados',
+      'write': 'Modificar seus dados',
     }
     return scopeMap[scope] || scope
   }
@@ -47,10 +47,10 @@ export function ConsentForm({
         </div>
         <div>
           <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 dark:text-gray-100">
-            Authorize access
+            Autorizar acesso
           </h2>
           <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-            <strong>{authDetails.client.name}</strong> wants to access your account
+            <strong>{authDetails.client.name}</strong> quer acessar sua conta
           </p>
         </div>
       </div>
@@ -66,7 +66,7 @@ export function ConsentForm({
         {/* Scope List */}
         <div>
           <p className="text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 sm:mb-3">
-            This application will be able to:
+            Esta aplicação poderá:
           </p>
           <ul
             className={cn(
@@ -93,10 +93,10 @@ export function ConsentForm({
         {/* Disclaimer */}
         <div className="space-y-2 sm:space-y-3 text-center">
           <p className="text-[10px] sm:text-xs md:text-sm text-muted-foreground leading-tight">
-            By authorizing, you allow <strong>{authDetails.client.name}</strong> to access your information according to their privacy policy and terms of service.
+            Ao autorizar, você permite que <strong>{authDetails.client.name}</strong> acesse suas informações de acordo com sua política de privacidade e termos de serviço.
           </p>
           <p className="text-[10px] sm:text-xs md:text-sm text-muted-foreground">
-            Signed in as <strong>{userEmail}</strong>
+            Conectado como <strong>{userEmail}</strong>
           </p>
         </div>
 
@@ -108,7 +108,7 @@ export function ConsentForm({
             size="lg"
             className="w-full h-10 sm:h-11 text-sm sm:text-base"
           >
-            {processing ? 'Processing...' : 'Authorize'}
+            {processing ? 'Processando...' : 'Autorizar'}
           </Button>
 
           <Button
@@ -118,7 +118,7 @@ export function ConsentForm({
             size="lg"
             className="w-full h-10 sm:h-11 text-sm sm:text-base"
           >
-            Deny
+            Negar
           </Button>
         </div>
       </div>

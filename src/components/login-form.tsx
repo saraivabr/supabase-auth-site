@@ -25,7 +25,7 @@ export function LoginForm({ className, ...props }: LoginFormProps) {
     <div className={cn('space-y-6', className)} {...props}>
       {/* Page Title */}
       <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 dark:text-gray-100 text-center">
-        Sign in to your account
+        Entre na sua conta
       </h2>
 
       {/* Login Content */}
@@ -42,7 +42,7 @@ export function LoginForm({ className, ...props }: LoginFormProps) {
                 className="h-11 justify-center gap-2 border-border/60 bg-background text-sm font-medium hover:bg-muted hover:border-border"
               >
                 <Mail className="h-5 w-5" />
-                <span>Continue with Email OTP</span>
+                <span>Continuar com Email OTP</span>
               </Button>
             </div>
 
@@ -50,7 +50,7 @@ export function LoginForm({ className, ...props }: LoginFormProps) {
               <>
                 <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
                   <span className="relative z-10 bg-card px-2 text-muted-foreground">
-                    Or continue with
+                    Ou continuar com
                   </span>
                 </div>
 

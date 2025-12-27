@@ -70,13 +70,13 @@ function ConsoleRouteComponent() {
     mutationFn: uploadConfigToStorage,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['site-config'] })
-      toast.success("Success", {
-        description: "Configuration saved successfully! Changes will take effect immediately.",
+      toast.success("Sucesso", {
+        description: "Configuração salva com sucesso! As alterações terão efeito imediatamente.",
       })
     },
     onError: (error: Error) => {
-      toast.error("Error", {
-        description: `Failed to save configuration: ${error.message}`,
+      toast.error("Erro", {
+        description: `Falha ao salvar configuração: ${error.message}`,
       })
     }
   })

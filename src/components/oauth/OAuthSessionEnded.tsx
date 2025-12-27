@@ -12,10 +12,10 @@ export function OAuthSessionEnded() {
         </div>
         <div>
           <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-2">
-            Session ended
+            Sessão encerrada
           </h2>
           <p className="text-sm text-gray-600 dark:text-gray-400">
-            You can safely close this window
+            Você pode fechar esta janela com segurança
           </p>
         </div>
       </div>
@@ -28,7 +28,7 @@ export function OAuthSessionEnded() {
         className="w-full h-11"
         onClick={() => window.close()}
       >
-        Close window
+        Fechar janela
       </Button>
     </div>
   )

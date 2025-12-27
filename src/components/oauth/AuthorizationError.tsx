@@ -13,7 +13,7 @@ export function AuthorizationError({
   title,
   onSignOut,
 }: AuthorizationErrorProps) {
-  const displayTitle = title || 'Authorization Failed'
+  const displayTitle = title || 'Falha na Autorização'
 
   return (
     <div className="space-y-3 sm:space-y-4">
@@ -23,10 +23,10 @@ export function AuthorizationError({
         <AlertDescription className="text-xs sm:text-sm">{error}</AlertDescription>
       </Alert>
       <div className="text-xs sm:text-sm text-muted-foreground mb-2">
-        You can try signing out and signing in again with a different account.
+        Você pode tentar sair e entrar novamente com uma conta diferente.
       </div>
       <Button onClick={onSignOut} className="w-full h-10 sm:h-11 text-sm sm:text-base">
-        Sign Out and Try Again
+        Sair e Tentar Novamente
       </Button>
     </div>
   )

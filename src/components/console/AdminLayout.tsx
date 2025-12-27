@@ -30,11 +30,11 @@ export function AdminLayout() {
   const initials = displayName.slice(0, 2).toUpperCase()
 
   const menuItems = [
-    { to: '/console/site', label: 'Site Info', icon: Globe },
-    { to: '/console/branding', label: 'Branding', icon: LayoutDashboard },
-    { to: '/console/theme', label: 'Theme', icon: Palette },
-    { to: '/console/auth', label: 'Authentication', icon: Lock },
-    { to: '/console/integration', label: 'Integration', icon: Code2 },
+    { to: '/console/site', label: 'Info do Site', icon: Globe },
+    { to: '/console/branding', label: 'Marca', icon: LayoutDashboard },
+    { to: '/console/theme', label: 'Tema', icon: Palette },
+    { to: '/console/auth', label: 'Autenticação', icon: Lock },
+    { to: '/console/integration', label: 'Integração', icon: Code2 },
   ] as const
 
   const activeItem = menuItems.find(item => location.pathname.startsWith(item.to))

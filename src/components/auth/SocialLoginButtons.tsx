@@ -65,7 +65,7 @@ export function SocialLoginButtons({
     <div className="space-y-4">
       {showHint && (
         <div className="text-center text-xs text-muted-foreground">
-          Or sign in with
+          Ou entre com
         </div>
       )}
 
@@ -76,7 +76,7 @@ export function SocialLoginButtons({
           const Icon = getProviderIcon(provider)
           const isLoading = loading === provider
           const providerName = getProviderDisplayName(provider)
-          const buttonText = `Continue with ${providerName}`
+          const buttonText = `Continuar com ${providerName}`
           const isPrimary =
             primaryProvider !== undefined && provider === primaryProvider
 
