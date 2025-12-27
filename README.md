@@ -6,14 +6,14 @@
   <h1 align="center">Supabase Auth Site</h1>
 
   <p align="center">
-    <strong>A production-ready, fully configurable authentication portal powered by Supabase.</strong>
+    <strong>Um portal de autenticação pronto para produção, totalmente configurável e alimentado pelo Supabase.</strong>
     <br />
-    Deploy your own branded login pages in minutes. Zero code changes required.
+    Implante suas próprias páginas de login personalizadas em minutos. Nenhuma alteração de código necessária.
     <br />
     <br />
-    <a href="https://github.com/saltbo/supabase-auth-site/issues">Report Bug</a>
+    <a href="https://github.com/saltbo/supabase-auth-site/issues">Reportar Bug</a>
     ·
-    <a href="https://github.com/saltbo/supabase-auth-site/issues">Request Feature</a>
+    <a href="https://github.com/saltbo/supabase-auth-site/issues">Solicitar Funcionalidade</a>
   </p>
 
   <p align="center">
@@ -26,26 +26,26 @@
 
 ---
 
-## 🚀 Overview
+## 🚀 Visão Geral
 
-**Supabase Auth Site** is a modern, drop-in authentication solution for your Supabase projects. It solves the problem of building and maintaining custom auth pages (Sign In, Sign Up, Forgot Password, OAuth) by providing a pre-built, highly polished application that you can deploy and configure instantly.
+**Supabase Auth Site** é uma solução moderna de autenticação plug-and-play para seus projetos Supabase. Ele resolve o problema de construir e manter páginas de autenticação personalizadas (Login, Cadastro, Esqueci a Senha, OAuth) fornecendo uma aplicação pré-construída e altamente refinada que você pode implantar e configurar instantaneamente.
 
-Unlike other templates, **you don't need to touch the code**. Every aspect of the site—from branding and colors to auth providers and security settings—is managed through a built-in **Admin Panel**.
+Ao contrário de outros templates, **você não precisa tocar no código**. Todos os aspectos do site—desde marca e cores até provedores de autenticação e configurações de segurança—são gerenciados através de um **Painel Admin** integrado.
 
-## ✨ Key Features
+## ✨ Principais Funcionalidades
 
-| Feature | Description |
+| Funcionalidade | Descrição |
 | ------- | ----------- |
-| **🎨 No-Code Styling** | Customize logo, colors, fonts, and gradients directly via the Admin UI. |
-| **🔐 Multi-Auth Support** | Email/Password, Magic Link (OTP), Google, GitHub, and more out of the box. |
-| **⚙️ Console** | A secure `/console` route to manage your site configuration in real-time. |
-| **🌐 Cross-Domain SSO** | Seamlessly share sessions between `auth.yourdomain.com` and `app.yourdomain.com`. |
-| **📱 Mobile Responsive** | Carefully crafted UI that looks perfect on desktop, tablet, and mobile. |
-| **🛡️ Enterprise Ready** | Built-in support for Cloudflare Turnstile CAPTCHA and PKCE security flow. |
+| **🎨 Estilização Sem Código** | Personalize logo, cores, fontes e gradientes diretamente pela interface Admin. |
+| **🔐 Suporte Multi-Autenticação** | Email/Senha, Magic Link (OTP), Google, GitHub e muito mais, prontos para usar. |
+| **⚙️ Console** | Uma rota segura `/console` para gerenciar a configuração do seu site em tempo real. |
+| **🌐 SSO entre Domínios** | Compartilhe sessões perfeitamente entre `auth.seudominio.com` e `app.seudominio.com`. |
+| **📱 Responsivo para Mobile** | UI cuidadosamente elaborada que fica perfeita em desktop, tablet e mobile. |
+| **🛡️ Pronto para Empresas** | Suporte integrado para Cloudflare Turnstile CAPTCHA e fluxo de segurança PKCE. |
 
-## 🛠 Tech Stack
+## 🛠 Stack Tecnológica
 
-Built with the latest and greatest web technologies for performance and developer experience.
+Construído com as mais recentes e melhores tecnologias web para performance e experiência do desenvolvedor.
 
 *   ![React](https://img.shields.io/badge/React_19-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 *   ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
@@ -56,80 +56,80 @@ Built with the latest and greatest web technologies for performance and develope
 
 ---
 
-## 🏁 Getting Started
+## 🏁 Começando
 
-We strictly recommend the **Fork & Deploy** strategy. This keeps your deployment linked to the upstream repository, allowing you to pull updates easily.
+Recomendamos fortemente a estratégia **Fork & Deploy**. Isso mantém sua implantação vinculada ao repositório upstream, permitindo que você puxe atualizações facilmente.
 
-### 1. Fork the Repository
+### 1. Fazer Fork do Repositório
 
-Click the **Fork** button at the top right of this page to create your own copy of the repository.
+Clique no botão **Fork** no canto superior direito desta página para criar sua própria cópia do repositório.
 
-### 2. Deploy
+### 2. Implantar
 
-Connect your forked repository to your preferred hosting provider.
+Conecte seu repositório bifurcado ao seu provedor de hospedagem preferido.
 
-#### Cloudflare Pages (Recommended)
-1. Go to **[Cloudflare Dashboard](https://dash.cloudflare.com/)** > **Pages** > **Connect to Git**.
-2. Select your forked repository.
-3. **Build Settings**:
+#### Cloudflare Pages (Recomendado)
+1. Vá para **[Painel Cloudflare](https://dash.cloudflare.com/)** > **Pages** > **Connect to Git**.
+2. Selecione seu repositório bifurcado.
+3. **Configurações de Build**:
    - **Framework Preset**: Vite
    - **Build Command**: `npm run build`
    - **Output Directory**: `dist`
 
 #### Vercel / Netlify
-1. Import your forked repository as a new project.
-2. The platform should auto-detect the Vite settings.
+1. Importe seu repositório bifurcado como um novo projeto.
+2. A plataforma deve detectar automaticamente as configurações do Vite.
 
-### 3. Configure Environment Variables
+### 3. Configurar Variáveis de Ambiente
 
-Add the following environment variables in your deployment platform settings:
+Adicione as seguintes variáveis de ambiente nas configurações da sua plataforma de implantação:
 
-| Variable | Description |
+| Variável | Descrição |
 | :--- | :--- |
-| `VITE_SUPABASE_URL` | Your Supabase Project URL (e.g., `https://xyz.supabase.co`) |
-| `VITE_SUPABASE_ANON_KEY` | Your Supabase Anon / Public Key |
-| `VITE_ADMIN_EMAILS` | Comma-separated list of emails allowed to access the Admin Panel |
+| `VITE_SUPABASE_URL` | URL do seu Projeto Supabase (ex: `https://xyz.supabase.co`) |
+| `VITE_SUPABASE_ANON_KEY` | Sua Chave Anon / Pública do Supabase |
+| `VITE_ADMIN_EMAILS` | Lista de emails separados por vírgula com permissão para acessar o Painel Admin |
 
-### 4. Supabase Configuration
+### 4. Configuração do Supabase
 
-1. **Site URL**: In Supabase Dashboard > Authentication > URL Configuration, set **Site URL** to your deployed domain (e.g., `https://auth.yourdomain.com`).
-2. **Redirects**: Add `https://auth.yourdomain.com/**` to the **Redirect URLs** allowlist.
-3. **Storage**: Create a new public bucket named `auth-site` (if not auto-created) to store your configuration.
-
----
-
-## 🎨 Configuration & Customization
-
-Once deployed, you don't need to commit code to change the look and feel.
-
-1.  Navigate to `https://your-deployed-site.com/console`
-2.  Login with an email address you added to `VITE_ADMIN_EMAILS`.
-3.  **Initialize**: Click the button to create your first config file.
-4.  **Edit**: Use the visual editor to update:
-    *   **Branding**: Upload your logo and favicon.
-    *   **Theme**: Pick your brand color and sidebar gradients.
-    *   **Content**: Update the slogan, description, and footer.
-    *   **Features**: Toggle specific auth providers or sidebar content.
-
-> Changes are saved to your Supabase Storage and propagate immediately to all users.
+1. **Site URL**: No Painel Supabase > Autenticação > Configuração de URL, defina **Site URL** para seu domínio implantado (ex: `https://auth.seudominio.com`).
+2. **Redirects**: Adicione `https://auth.seudominio.com/**` à lista de permissões das **URLs de Redirecionamento**.
+3. **Storage**: Crie um novo bucket público chamado `auth-site` (se não for criado automaticamente) para armazenar sua configuração.
 
 ---
 
-## 🔄 Updates & Maintenance
+## 🎨 Configuração & Personalização
 
-To update your site with the latest features and security patches:
+Uma vez implantado, você não precisa fazer commit de código para mudar a aparência.
 
-1.  Navigate to your forked repository on GitHub.
-2.  Click **"Sync fork"** under the repository header.
-3.  Your deployment platform will automatically trigger a new build.
+1.  Navegue até `https://seu-site-implantado.com/console`
+2.  Faça login com um endereço de email que você adicionou a `VITE_ADMIN_EMAILS`.
+3.  **Inicializar**: Clique no botão para criar seu primeiro arquivo de configuração.
+4.  **Editar**: Use o editor visual para atualizar:
+    *   **Marca**: Envie seu logo e favicon.
+    *   **Tema**: Escolha a cor da sua marca e gradientes da barra lateral.
+    *   **Conteúdo**: Atualize o slogan, descrição e rodapé.
+    *   **Funcionalidades**: Alterne provedores de autenticação específicos ou conteúdo da barra lateral.
+
+> As alterações são salvas no seu Supabase Storage e propagadas imediatamente para todos os usuários.
 
 ---
 
-## 📚 Documentation
+## 🔄 Atualizações & Manutenção
 
-*   [Cross-Domain SSO Guide](./docs/CROSS_DOMAIN_AUTH.md) - Learn how to share sessions across subdomains.
-*   [Contributing Guidelines](./CONTRIBUTING.md) - Want to help improve the project?
+Para atualizar seu site com os últimos recursos e patches de segurança:
 
-## 📄 License
+1.  Navegue até seu repositório bifurcado no GitHub.
+2.  Clique em **"Sync fork"** abaixo do cabeçalho do repositório.
+3.  Sua plataforma de implantação acionará automaticamente um novo build.
 
-Distributed under the MIT License. See `LICENSE` for more information.
+---
+
+## 📚 Documentação
+
+*   [Guia de SSO entre Domínios](./docs/CROSS_DOMAIN_AUTH.md) - Aprenda como compartilhar sessões entre subdomínios.
+*   [Diretrizes de Contribuição](./CONTRIBUTING.md) - Quer ajudar a melhorar o projeto?
+
+## 📄 Licença
+
+Distribuído sob a Licença MIT. Veja `LICENSE` para mais informações.

@@ -1,109 +1,109 @@
-# Contributing to Supabase Auth Site
+# Contribuindo para o Supabase Auth Site
 
-Thank you for your interest in contributing to Supabase Auth Site! This document provides information on the project structure and development workflow.
+Obrigado pelo seu interesse em contribuir para o Supabase Auth Site! Este documento fornece informações sobre a estrutura do projeto e o fluxo de trabalho de desenvolvimento.
 
-## Project Structure
+## Estrutura do Projeto
 
 ```
 supabase-auth-site/
-├── site.config.ts              # Your customization file
-├── site.config.default.ts      # Example config with all options
-├── site.config.types.ts        # TypeScript type definitions
+├── site.config.ts              # Seu arquivo de personalização
+├── site.config.default.ts      # Exemplo de config com todas as opções
+├── site.config.types.ts        # Definições de tipo TypeScript
 ├── docs/
-|   |---CROSS_DOMAIN_AUTH.md    # Cross-domain SSO setup guide
+|   |---CROSS_DOMAIN_AUTH.md    # Guia de configuração de SSO entre domínios
 ├── src/
 │   ├── components/
-│   │   ├── auth/               # Auth form components
-│   │   ├── oauth/              # OAuth consent components
-│   │   ├── ui/                 # shadcn/ui components
-│   │   ├── Logo.tsx            # Configurable logo component
-│   │   └── login-form.tsx      # Main login form
+│   │   ├── auth/               # Componentes de formulário de autenticação
+│   │   ├── oauth/              # Componentes de consentimento OAuth
+│   │   ├── ui/                 # Componentes shadcn/ui
+│   │   ├── Logo.tsx            # Componente de logo configurável
+│   │   └── login-form.tsx      # Formulário de login principal
 │   ├── layouts/
-│   │   └── AuthLayout.tsx      # Two-column auth layout
+│   │   └── AuthLayout.tsx      # Layout de autenticação de duas colunas
 │   ├── lib/
-│   │   ├── auth.tsx            # Auth context provider
-│   │   ├── config.ts           # Config utilities
-│   │   ├── supabase.ts         # Supabase client (with cookie storage)
-│   │   ├── cookieStorage.ts    # Cookie storage adapter for SSO
-│   │   ├── apiClient.ts        # API client with automatic JWT
-│   │   ├── theme.ts            # Theme injection
-│   │   ├── redirect.ts         # Redirect handling
-│   │   └── route-guards.ts     # Route protection
-│   ├── routes/                 # File-based routes
-│   │   ├── signin.tsx          # Sign-in page
-│   │   ├── callback.tsx        # OAuth callback
-│   │   ├── verify-otp.tsx      # OTP verification
+│   │   ├── auth.tsx            # Provedor de contexto de autenticação
+│   │   ├── config.ts           # Utilitários de configuração
+│   │   ├── supabase.ts         # Cliente Supabase (com armazenamento de cookie)
+│   │   ├── cookieStorage.ts    # Adaptador de armazenamento de cookie para SSO
+│   │   ├── apiClient.ts        # Cliente API com JWT automático
+│   │   ├── theme.ts            # Injeção de tema
+│   │   ├── redirect.ts         # Tratamento de redirecionamento
+│   │   └── route-guards.ts     # Proteção de rotas
+│   ├── routes/                 # Rotas baseadas em arquivo
+│   │   ├── signin.tsx          # Página de login
+│   │   ├── callback.tsx        # Callback OAuth
+│   │   ├── verify-otp.tsx      # Verificação OTP
 │   │   └── oauth/
-│   │       └── consent.tsx     # OAuth authorization
-│   └── main.tsx                # App entry point
-├── public/                     # Static assets
-└── .env                        # Environment variables
+│   │       └── consent.tsx     # Autorização OAuth
+│   └── main.tsx                # Ponto de entrada da aplicação
+├── public/                     # Assets estáticos
+└── .env                        # Variáveis de ambiente
 ```
 
-## Development
+## Desenvolvimento
 
-### Prerequisites
+### Pré-requisitos
 
-- Node.js (v20 or later recommended)
-- npm or yarn
+- Node.js (v20 ou posterior recomendado)
+- npm ou yarn
 
-### Setup
+### Configuração
 
-1. Clone the repository:
+1. Clone o repositório:
    ```bash
    git clone <repository-url>
    cd supabase-auth-site
    npm install
    ```
 
-2. Configure Environment:
+2. Configure o Ambiente:
    ```bash
    cp .env.example .env
    ```
-   Edit `.env` and add your Supabase credentials.
+   Edite `.env` e adicione suas credenciais do Supabase.
 
-3. Run Development Server:
+3. Execute o Servidor de Desenvolvimento:
    ```bash
    npm run dev
    ```
-   Visit http://localhost:3000
+   Visite http://localhost:3000
 
-### Available Scripts
+### Scripts Disponíveis
 
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run preview` - Preview production build
-- `npm run test` - Run tests
+- `npm run dev` - Iniciar servidor de desenvolvimento
+- `npm run build` - Build para produção
+- `npm run preview` - Pré-visualizar build de produção
+- `npm run test` - Executar testes
 
-### Adding New UI Components
+### Adicionando Novos Componentes de UI
 
-This project uses shadcn/ui. Add components with:
+Este projeto usa shadcn/ui. Adicione componentes com:
 
 ```bash
 npx shadcn@latest add <component-name>
 ```
 
-Example:
+Exemplo:
 
 ```bash
 npx shadcn@latest add dialog
 ```
 
-## Security for Developers
+## Segurança para Desenvolvedores
 
-- **Never commit `.env`** - It contains sensitive credentials
-- **Use environment variables** - Don't hardcode secrets
-- **Code Review** - Ensure no secrets are leaked in PRs
+- **Nunca faça commit do `.env`** - Ele contém credenciais sensíveis
+- **Use variáveis de ambiente** - Não faça hardcode de segredos
+- **Revisão de Código** - Garanta que nenhum segredo seja vazado em PRs
 
-## Pull Request Process
+## Processo de Pull Request
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Make your changes
-4. Commit your changes (`git commit -m 'Add some amazing feature'`)
-5. Push to the branch (`git push origin feature/amazing-feature`)
-6. Open a Pull Request
+1. Faça fork do repositório
+2. Crie uma branch de funcionalidade (`git checkout -b feature/funcionalidade-incrivel`)
+3. Faça suas alterações
+4. Faça commit das suas alterações (`git commit -m 'Adiciona funcionalidade incrível'`)
+5. Faça push para a branch (`git push origin feature/funcionalidade-incrivel`)
+6. Abra um Pull Request
 
-## License
+## Licença
 
-By contributing, you agree that your contributions will be licensed under its MIT License.
+Ao contribuir, você concorda que suas contribuições serão licenciadas sob sua Licença MIT.

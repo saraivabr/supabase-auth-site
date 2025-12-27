@@ -41,11 +41,11 @@ interface ErrorPageProps {
 }
 
 const ERROR_TITLES: Record<ErrorType, string> = {
-  auth: 'Authentication Error',
-  network: 'Network Error',
-  'not-found': 'Page Not Found',
-  server: 'Server Error',
-  unknown: 'Something Went Wrong',
+  auth: 'Erro de Autenticação',
+  network: 'Erro de Rede',
+  'not-found': 'Página Não Encontrada',
+  server: 'Erro do Servidor',
+  unknown: 'Algo Deu Errado',
 }
 
 const ERROR_ICONS: Record<ErrorType, typeof AlertCircle> = {
@@ -102,7 +102,7 @@ export function ErrorPage({
       <div className="space-y-3">
         {onAction && (
           <Button onClick={onAction} className="w-full">
-            {actionLabel || 'Go Back'}
+            {actionLabel || 'Voltar'}
           </Button>
         )}
 
@@ -112,7 +112,7 @@ export function ErrorPage({
             variant="outline"
             className="w-full"
           >
-            {secondaryActionLabel || 'Try Again'}
+            {secondaryActionLabel || 'Tentar Novamente'}
           </Button>
         )}
       </div>

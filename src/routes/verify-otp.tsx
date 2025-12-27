@@ -55,7 +55,7 @@ function VerifyOtpPage() {
     e.preventDefault()
 
     if (isTurnstileEnabled(config) && !turnstileToken) {
-      setError('Please complete the verification')
+      setError('Por favor, complete a verificação')
       return
     }
 
@@ -85,10 +85,10 @@ function VerifyOtpPage() {
         {/* Page Title */}
         <div className="text-center">
           <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-2">
-            Verify your email
+            Verifique seu email
           </h2>
           <p className="text-sm text-gray-600 dark:text-gray-400">
-            Enter the code we sent to {email}
+            Digite o código que enviamos para {email}
           </p>
         </div>
 
@@ -99,12 +99,12 @@ function VerifyOtpPage() {
 
             <div className="grid gap-2">
               <Label htmlFor="otp">
-                Verification Code
+                Código de Verificação
               </Label>
               <Input
                 id="otp"
                 type="text"
-                placeholder="Enter 6-digit code"
+                placeholder="Digite o código de 6 dígitos"
                 value={otp}
                 onChange={(e) => setOtp(e.target.value)}
                 disabled={loading}
@@ -129,7 +129,7 @@ function VerifyOtpPage() {
               {loading ? (
                 <div className="h-5 w-5 animate-spin rounded-full border-2 border-current border-t-transparent" />
               ) : (
-                'Verify'
+                'Verificar'
               )}
             </Button>
 
@@ -141,7 +141,7 @@ function VerifyOtpPage() {
               disabled={loading}
             >
               <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to sign in
+              Voltar para o login
             </Button>
           </div>
         </form>

@@ -59,7 +59,7 @@ export function EmailPasswordLoginForm({}: EmailPasswordLoginFormProps) {
           <Input
             id="email"
             type="email"
-            placeholder="name@example.com"
+            placeholder="nome@exemplo.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             disabled={loading}
@@ -68,11 +68,11 @@ export function EmailPasswordLoginForm({}: EmailPasswordLoginFormProps) {
         </div>
 
         <div className="grid gap-2">
-          <Label htmlFor="password">Password</Label>
+          <Label htmlFor="password">Senha</Label>
           <Input
             id="password"
             type="password"
-            placeholder="Enter your password"
+            placeholder="Digite sua senha"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             onFocus={handlePasswordFocus}
@@ -97,7 +97,7 @@ export function EmailPasswordLoginForm({}: EmailPasswordLoginFormProps) {
           {loading ? (
             <div className="h-5 w-5 animate-spin rounded-full border-2 border-current border-t-transparent" />
           ) : (
-            'Sign in'
+            'Entrar'
           )}
         </Button>
       </div>
