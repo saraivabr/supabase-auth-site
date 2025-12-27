@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { createFileRoute, redirect, useNavigate } from '@tanstack/react-router'
 import { useAuth } from '@/lib/auth'
 import { supabase } from '@/lib/supabase'
+import { isUserAdmin } from '@/lib/config-service'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
@@ -54,6 +55,8 @@ function HomePage() {
       </div>
     )
   }
+
+  const isAdmin = isUserAdmin(user?.email)
 
   const getUserInitials = (email: string): string => {
     return email.split('@')[0]?.substring(0, 2).toUpperCase() || 'U'
@@ -158,9 +161,19 @@ function HomePage() {
                   </div>
 
                   <div className="flex flex-wrap gap-2">
-                    <Badge variant="secondary" className="px-3 py-1 bg-primary/10 text-primary border-primary/20 hover:bg-primary/20">
-                      User
-                    </Badge>
+                    {isAdmin ? (
+                      <Badge variant="secondary" className="px-3 py-1 bg-red-500/10 text-red-500 border-red-500/20 hover:bg-red-500/20">
+                        Admin
+                      </Badge>
+                    ) : user?.is_anonymous ? (
+                      <Badge variant="secondary" className="px-3 py-1 bg-yellow-500/10 text-yellow-500 border-yellow-500/20 hover:bg-yellow-500/20">
+                        Anonymous
+                      </Badge>
+                    ) : (
+                      <Badge variant="secondary" className="px-3 py-1 bg-primary/10 text-primary border-primary/20 hover:bg-primary/20">
+                        Member
+                      </Badge>
+                    )}
                     <Badge variant="outline" className="px-3 py-1 gap-1">
                       <Clock className="h-3 w-3" />
                       Joined {new Date(user.created_at).toLocaleDateString()}
