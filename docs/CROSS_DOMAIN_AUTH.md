@@ -1,5 +1,7 @@
 # Cross-Domain Authentication Guide
 
+> 🇧🇷 **Portuguese version available:** [Guia de Autenticação entre Domínios (ptbr)](./CROSS_DOMAIN_AUTH_PTBR.md)
+
 This guide explains how to use this SSO site to authenticate users across multiple subdomains of your domain.
 
 ## Table of Contents
