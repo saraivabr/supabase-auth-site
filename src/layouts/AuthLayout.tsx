@@ -50,9 +50,31 @@ export function AuthLayout({ children }: AuthLayoutProps) {
         </Card>
 
         {/* Footer */}
-        <div className="mt-6 text-center">
-          <p className="text-xs text-gray-500 dark:text-gray-500">
-            {config.site.copyright}
+        <div className="mt-6 text-center space-y-2">
+          {config.site.copyright && (
+            <p className="text-xs text-muted-foreground/60">
+              {config.site.copyright}
+            </p>
+          )}
+          <p className="text-[10px] text-muted-foreground/40">
+            Powered by{' '}
+            <a 
+              href="https://supabase.com" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="hover:text-muted-foreground transition-colors"
+            >
+              Supabase
+            </a>
+            {' '}and{' '}
+            <a 
+              href="https://github.com/saltbo/supabase-auth-site" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="hover:text-muted-foreground transition-colors"
+            >
+              supabase-auth-site
+            </a>
           </p>
         </div>
       </div>
