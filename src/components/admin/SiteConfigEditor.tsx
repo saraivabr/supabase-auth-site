@@ -10,12 +10,14 @@ import {
   Globe, 
   Lock, 
   ArrowLeft,
-  Settings
+  Settings,
+  Code2
 } from 'lucide-react'
 import { SiteInfoForm } from './SiteInfoForm'
 import { BrandingForm } from './BrandingForm'
 import { ThemeForm } from './ThemeForm'
 import { AuthConfigForm } from './AuthConfigForm'
+import { IntegrationGuide } from './IntegrationGuide'
 import type { SiteConfig } from '@/../site.config.types'
 import { cn } from '@/lib/utils'
 
@@ -27,7 +29,7 @@ interface SiteConfigEditorProps {
 
 export function SiteConfigEditor({ config, onSave, isLoading }: SiteConfigEditorProps) {
   const [saveSuccess, setSaveSuccess] = useState(false)
-  const [activeTab, setActiveTab] = useState<'site' | 'branding' | 'theme' | 'auth'>('site')
+  const [activeTab, setActiveTab] = useState<'site' | 'branding' | 'theme' | 'auth' | 'integration'>('site')
 
   if (!config) {
     return (
@@ -52,6 +54,7 @@ export function SiteConfigEditor({ config, onSave, isLoading }: SiteConfigEditor
     { id: 'branding', label: 'Branding', icon: LayoutDashboard, description: 'Customize your site logo and favicon' },
     { id: 'theme', label: 'Theme', icon: Palette, description: 'Customize your site color scheme' },
     { id: 'auth', label: 'Authentication', icon: Lock, description: 'Configure authentication providers and options' },
+    { id: 'integration', label: 'Integration', icon: Code2, description: 'Guides for integrating with your applications' },
   ] as const
 
   const activeItem = menuItems.find(i => i.id === activeTab)!
@@ -96,7 +99,7 @@ export function SiteConfigEditor({ config, onSave, isLoading }: SiteConfigEditor
 
       {/* Main Content */}
       <main className="flex-1 ml-64 p-8 lg:p-10">
-        <div className="max-w-2xl space-y-8">
+        <div className="max-w-5xl space-y-8">
           {/* Header */}
           <div>
             <h1 className="text-2xl font-bold tracking-tight text-foreground">
@@ -120,35 +123,47 @@ export function SiteConfigEditor({ config, onSave, isLoading }: SiteConfigEditor
 
           <div className="mt-8">
             {activeTab === 'site' && (
-              <SiteInfoForm
-                initialData={config.site}
-                onSave={(site) => handleSave({ site })}
-                isLoading={isLoading}
-              />
+              <div className="max-w-2xl">
+                <SiteInfoForm 
+                  initialData={config.site} 
+                  onSave={(data) => handleSave({ site: data })}
+                  isLoading={isLoading}
+                />
+              </div>
             )}
 
             {activeTab === 'branding' && (
-              <BrandingForm
-                initialData={config.branding}
-                onSave={(branding) => handleSave({ branding })}
-                isLoading={isLoading}
-              />
+              <div className="max-w-2xl">
+                <BrandingForm 
+                  initialData={config.branding} 
+                  onSave={(data) => handleSave({ branding: data })}
+                  isLoading={isLoading}
+                />
+              </div>
             )}
 
             {activeTab === 'theme' && (
-              <ThemeForm
-                initialData={config.theme}
-                onSave={(theme) => handleSave({ theme })}
-                isLoading={isLoading}
-              />
+              <div className="max-w-2xl">
+                <ThemeForm 
+                  initialData={config.theme} 
+                  onSave={(data) => handleSave({ theme: data })}
+                  isLoading={isLoading}
+                />
+              </div>
             )}
 
             {activeTab === 'auth' && (
-              <AuthConfigForm
-                initialData={config.auth}
-                onSave={(auth) => handleSave({ auth })}
-                isLoading={isLoading}
-              />
+              <div className="max-w-2xl">
+                <AuthConfigForm 
+                  initialData={config.auth} 
+                  onSave={(data) => handleSave({ auth: data })}
+                  isLoading={isLoading}
+                />
+              </div>
+            )}
+
+            {activeTab === 'integration' && (
+              <IntegrationGuide config={config} />
             )}
           </div>
         </div>
