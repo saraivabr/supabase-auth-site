@@ -91,14 +91,14 @@ export class ErrorBoundary extends Component<
       return (
         <ErrorPage
           type="unknown"
-          title="Something Went Wrong"
+          title="Algo Deu Errado"
           message={
             this.state.error?.message ||
-            'An unexpected error occurred. Please try refreshing the page.'
+            'Ocorreu um erro inesperado. Por favor, tente atualizar a página.'
           }
-          actionLabel="Reload Page"
+          actionLabel="Recarregar Página"
           onAction={() => window.location.reload()}
-          secondaryActionLabel="Go to Home"
+          secondaryActionLabel="Ir para Início"
           onSecondaryAction={() => (window.location.href = '/')}
           useAuthLayout={false}
         />
