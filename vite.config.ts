@@ -5,9 +5,15 @@ import tailwindcss from '@tailwindcss/vite'
 
 import { tanstackRouter } from '@tanstack/router-plugin/vite'
 import { fileURLToPath, URL } from 'node:url'
+import { readFileSync } from 'node:fs'
+
+const packageJson = JSON.parse(readFileSync('./package.json', 'utf-8'))
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  define: {
+    'import.meta.env.APP_VERSION': JSON.stringify(packageJson.version),
+  },
   plugins: [
     devtools(),
     tanstackRouter({

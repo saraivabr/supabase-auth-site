@@ -66,6 +66,28 @@ function HomePage() {
     return 'Good evening'
   }
 
+  const getSystemInfo = () => {
+    if (typeof navigator === 'undefined') return { os: 'Unknown', browser: 'Unknown' }
+    
+    const ua = navigator.userAgent
+    let os = 'Unknown OS'
+    if (ua.indexOf('Win') !== -1) os = 'Windows'
+    if (ua.indexOf('Mac') !== -1) os = 'macOS'
+    if (ua.indexOf('Linux') !== -1) os = 'Linux'
+    if (ua.indexOf('Android') !== -1) os = 'Android'
+    if (ua.indexOf('like Mac') !== -1) os = 'iOS'
+
+    let browser = 'Unknown Browser'
+    if (ua.indexOf('Chrome') !== -1) browser = 'Chrome'
+    if (ua.indexOf('Firefox') !== -1) browser = 'Firefox'
+    if (ua.indexOf('Safari') !== -1 && ua.indexOf('Chrome') === -1) browser = 'Safari'
+    if (ua.indexOf('Edg') !== -1) browser = 'Edge'
+
+    return { os, browser }
+  }
+
+  const systemInfo = getSystemInfo()
+
   return (
     <div className="min-h-screen bg-background relative overflow-hidden">
       {/* Background decoration */}
@@ -162,7 +184,7 @@ function HomePage() {
                <div className="flex items-center justify-between bg-muted/50 p-3 rounded-lg border border-muted">
                  <span className="font-medium capitalize flex items-center gap-2">
                    <Globe className="h-4 w-4 opacity-50" />
-                   {user.app_metadata?.provider || 'Email'}
+                   {systemInfo.browser}
                  </span>
                  <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
                </div>
@@ -204,8 +226,8 @@ function HomePage() {
                 <Cpu className="h-5 w-5 text-slate-500" />
                 <span className="font-medium">System</span>
               </div>
-              <p className="text-2xl font-bold">v1.0</p>
-              <p className="text-xs text-muted-foreground mt-1">Stable release</p>
+              <p className="text-2xl font-bold">v{import.meta.env.APP_VERSION}</p>
+              <p className="text-xs text-muted-foreground mt-1">{systemInfo.os}</p>
            </Card>
         </div>
 
