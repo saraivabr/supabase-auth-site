@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { fetchConfigFromStorage, mergeWithDefaultConfig } from './config-service'
 import { defaultConfig } from '@/../site.config.default'
 import { getProviderMetadata } from './auth-providers'
-import type { SiteConfig } from '@/../site.config'
+import type { SiteConfig } from '@/../site.config.types'
 
 export type { SiteConfig }
 

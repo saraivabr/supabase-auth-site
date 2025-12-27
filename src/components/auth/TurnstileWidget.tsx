@@ -1,4 +1,4 @@
-import { useEffect, useImperativeHandle, forwardRef, useState } from 'react'
+import { useImperativeHandle, forwardRef, useState } from 'react'
 import { Turnstile } from '@marsidev/react-turnstile'
 import { useSiteConfig, isTurnstileEnabled } from '@/lib/config'
 

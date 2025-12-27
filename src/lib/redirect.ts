@@ -92,7 +92,7 @@ export const resolveRedirect = (queryRedirect?: string): string | undefined => {
 export const performPostLoginRedirect = (
   navigate: (opts: { to: string }) => void,
 ) => {
-  const redirect = resolveRedirect() // Re-resolve or just get stored
+  resolveRedirect() // Re-resolve or just get stored
   // Since resolveRedirect writes to storage, we can just read storage or use the return value.
   // Ideally, we explicitly read storage to clear it.
   

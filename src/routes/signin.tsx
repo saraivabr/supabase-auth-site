@@ -1,5 +1,4 @@
-import { createFileRoute, useNavigate, redirect } from '@tanstack/react-router'
-import { useAuth } from '@/lib/auth'
+import { createFileRoute, redirect } from '@tanstack/react-router'
 import { supabase } from '@/lib/supabase'
 import { AuthLayout } from '@/layouts/AuthLayout'
 import { LoginForm } from '@/components/login-form'
@@ -18,7 +17,6 @@ export const Route = createFileRoute('/signin')({
 })
 
 function LoginPage() {
-  const navigate = useNavigate()
   const search: { redirect?: string } = Route.useSearch()
   const { redirect: redirectUrl } = search
   

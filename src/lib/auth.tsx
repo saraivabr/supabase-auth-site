@@ -105,7 +105,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       provider: provider,
       options: {
         redirectTo: callbackUrl.toString(),
-        scopes: providerConfig?.scopes,
+        scopes: providerConfig?.defaultScopes,
       },
     })
     return { error }

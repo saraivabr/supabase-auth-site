@@ -1,26 +1,5 @@
 import { useEffect, useState } from 'react'
 import { KeyRound } from 'lucide-react'
-import {
-  SiApple,
-  SiGoogle,
-  SiGithub,
-  SiGitlab,
-  SiFacebook,
-  SiX,
-  SiDiscord,
-  SiSlack,
-  SiLinkedin,
-  SiBitbucket,
-  SiNotion,
-  SiFigma,
-  SiSpotify,
-  SiTwitch,
-  SiKakao,
-  SiKeycloak,
-  SiZoom,
-  SiFlydotio,
-} from 'react-icons/si'
-import { FaMicrosoft } from 'react-icons/fa6'
 import type { IconType } from 'react-icons'
 import type { Provider } from '@/lib/auth'
 import { useAuth } from '@/lib/auth'
@@ -30,36 +9,6 @@ import { Button } from '@/components/ui/button'
 
 // Icon component type that supports both lucide and react-icons
 type IconComponent = IconType | React.ComponentType<{ className?: string }>
-
-// Default icon mapping for common OAuth providers
-// Using Simple Icons (si) and FontAwesome (fa6) from react-icons
-// Covers all Supabase-supported OAuth providers
-const DEFAULT_PROVIDER_ICONS: Record<string, IconComponent> = {
-  apple: SiApple,
-  google: SiGoogle,
-  github: SiGithub,
-  gitlab: SiGitlab,
-  facebook: SiFacebook,
-  twitter: SiX, // X (formerly Twitter) - OAuth 1.0a
-  x: SiX, // X - OAuth 2.0
-  discord: SiDiscord,
-  slack: SiSlack,
-  slack_oidc: SiSlack, // Slack with OIDC
-  linkedin: SiLinkedin,
-  linkedin_oidc: SiLinkedin, // LinkedIn with OIDC
-  bitbucket: SiBitbucket,
-  notion: SiNotion,
-  figma: SiFigma,
-  spotify: SiSpotify,
-  twitch: SiTwitch,
-  microsoft: FaMicrosoft,
-  azure: FaMicrosoft,
-  kakao: SiKakao,
-  keycloak: SiKeycloak,
-  zoom: SiZoom,
-  fly: SiFlydotio,
-  // workos: No icon available, will use KeyRound fallback
-}
 
 /**
  * Get icon component for a provider
