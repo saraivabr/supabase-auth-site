@@ -60,5 +60,9 @@ export const defaultConfig: SiteConfig = {
       expires: 365,
       sameSite: 'Lax',
     },
+
+    // Domain for cookie storage (SSO)
+    // Set to '.yourdomain.com' to share session across subdomains
+    cookieDomain: undefined,
   },
 }

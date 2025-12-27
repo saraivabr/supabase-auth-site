@@ -22,8 +22,12 @@ import { getCachedConfig, mergeWithDefaultConfig } from './config-service'
  * - '.example.com' - shares across all subdomains (auth.example.com, console.example.com, etc.)
  * - 'localhost' - for local development
  */
-const COOKIE_DOMAIN =
-  import.meta.env.VITE_COOKIE_DOMAIN || window.location.hostname
+function resolveCookieDomain(): string {
+  const rawConfig = getCachedConfig()
+  const config = mergeWithDefaultConfig(rawConfig)
+
+  return config.auth.cookieDomain || window.location.hostname
+}
 
 /**
  * Cookie options for production
@@ -64,11 +68,12 @@ export const cookieStorage: SupportedStorage = {
     const rawConfig = getCachedConfig()
     const config = mergeWithDefaultConfig(rawConfig)
     const cookieOptions = config.auth.cookieOptions
+    const domain = resolveCookieDomain()
 
     Cookies.set(key, value, {
       expires: cookieOptions?.expires ?? 365,
       path: '/',
-      domain: COOKIE_DOMAIN,
+      domain: domain,
       sameSite: (cookieOptions?.sameSite as any) ?? 'Lax',
       secure: isProduction && isSecure, // HTTPS only in production
     })
@@ -78,9 +83,10 @@ export const cookieStorage: SupportedStorage = {
    * Remove item from cookie storage
    */
   removeItem: (key: string): void => {
+    const domain = resolveCookieDomain()
     Cookies.remove(key, {
       path: '/',
-      domain: COOKIE_DOMAIN,
+      domain: domain,
     })
   },
 }
@@ -90,5 +96,5 @@ export const cookieStorage: SupportedStorage = {
  * Useful for debugging
  */
 export function getCookieDomain(): string {
-  return COOKIE_DOMAIN
+  return resolveCookieDomain()
 }

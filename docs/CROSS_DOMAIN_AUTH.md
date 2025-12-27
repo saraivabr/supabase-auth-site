@@ -92,8 +92,14 @@ You have multiple sites on different subdomains that need to share authenticatio
 # .env
 VITE_SUPABASE_URL=https://xxx.supabase.co
 VITE_SUPABASE_ANON_KEY=your-anon-key
-VITE_COOKIE_DOMAIN=.example.com  # ← Key: enables cross-subdomain
+VITE_ADMIN_EMAILS=admin@example.com
 ```
+
+**Configure via Admin UI:**
+
+1. Navigate to `https://auth.example.com/admin`
+2. Go to **Auth Settings**
+3. Set **Cookie Domain (SSO)** to `.example.com`
 
 **Deploy to `auth.example.com`**
 
@@ -118,8 +124,6 @@ npm install -D @types/js-cookie
 # .env
 VITE_SUPABASE_URL=https://xxx.supabase.co  # Same as SSO site
 VITE_SUPABASE_ANON_KEY=your-anon-key       # Same as SSO site
-VITE_COOKIE_DOMAIN=.example.com            # Same as SSO site
-VITE_API_BASE_URL=https://api.example.com  # Your backend API
 ```
 
 **Use in your app:**
@@ -154,13 +158,20 @@ This project is already configured for cross-domain authentication. Just configu
 VITE_SUPABASE_URL=https://your-project.supabase.co
 VITE_SUPABASE_ANON_KEY=your-anon-key-here
 
-# Cookie Domain (Required for SSO)
-# Format: .yourdomain.com (must start with dot)
-VITE_COOKIE_DOMAIN=.example.com
+# Admin Access (Required)
+VITE_ADMIN_EMAILS=admin@example.com
 
 # API Base URL (Optional)
 VITE_API_BASE_URL=https://api.example.com
 ```
+
+### SSO Configuration
+
+Most settings, including the **Cookie Domain**, are now managed through the built-in **Admin Panel** at `/admin`. This allows you to update your site configuration without redeploying.
+
+1. Login to the Admin Panel.
+2. Navigate to **Auth Settings**.
+3. Update the **Cookie Domain (SSO)** (e.g., `.example.com`).
 
 ### Deployment
 
@@ -186,7 +197,7 @@ docker build -t sso-site .
 docker run -p 80:80 \
   -e VITE_SUPABASE_URL=https://xxx.supabase.co \
   -e VITE_SUPABASE_ANON_KEY=xxx \
-  -e VITE_COOKIE_DOMAIN=.example.com \
+  -e VITE_ADMIN_EMAILS=admin@example.com \
   sso-site
 ```
 
@@ -219,7 +230,6 @@ src/lib/apiClient.ts      → your-app/src/lib/apiClient.ts (optional)
 # Must match SSO site configuration
 VITE_SUPABASE_URL=https://your-project.supabase.co
 VITE_SUPABASE_ANON_KEY=your-anon-key-here
-VITE_COOKIE_DOMAIN=.example.com
 
 # Your backend API
 VITE_API_BASE_URL=https://api.example.com
@@ -504,12 +514,10 @@ sudo nano /etc/hosts
 127.0.0.1  api.local.dev
 ```
 
-**Configure environment:**
+**Configure via Admin UI:**
 
-```bash
-# .env.local
-VITE_COOKIE_DOMAIN=.local.dev
-```
+1. Navigate to `http://auth.local.dev:3000/admin`
+2. Set **Cookie Domain (SSO)** to `.local.dev`
 
 **Run your apps:**
 
@@ -525,12 +533,7 @@ cd ../business-site && npm run dev
 
 ### Solution 2: Don't Set Cookie Domain
 
-For local development only, you can skip setting `VITE_COOKIE_DOMAIN`:
-
-```bash
-# .env.local
-# VITE_COOKIE_DOMAIN=  # ← Leave empty or comment out
-```
+If you don't set a **Cookie Domain** in the Admin Panel, it will default to the current hostname (e.g., `localhost`). This works for testing on a single domain but SSO won't work across different subdomains or ports.
 
 This will use the current hostname (e.g., `localhost`), so SSO won't work across different ports, but you can test on a single domain.
 
@@ -591,7 +594,7 @@ The cookie storage is configured with security best practices:
 **Problem:** User logs in at `auth.example.com` but `console.example.com` doesn't see the session.
 
 **Solution:**
-1. Check `VITE_COOKIE_DOMAIN` is set to `.example.com` (with dot)
+1. Check the **Cookie Domain (SSO)** in the Admin Panel is set to `.example.com` (with dot)
 2. Verify both sites use the **same Supabase project**
 3. Check browser DevTools → Application → Cookies
 4. Ensure the cookie domain shows `.example.com`
@@ -611,7 +614,7 @@ The cookie storage is configured with security best practices:
 **Problem:** No cookie appears in DevTools
 
 **Solution:**
-1. Check if `VITE_COOKIE_DOMAIN` is set correctly
+1. Check if **Cookie Domain** is set correctly in the Admin Panel
 2. Verify you're on HTTPS in production
 3. Check browser console for errors
 4. Try clearing browser cache and cookies
@@ -631,7 +634,7 @@ The cookie storage is configured with security best practices:
 
 **Solution:**
 1. Use `/etc/hosts` to set up local domains (see [Local Development](#local-development))
-2. Or don't set `VITE_COOKIE_DOMAIN` for local dev
+2. Or leave the **Cookie Domain** empty in the Admin Panel for local dev
 
 ---
 
@@ -673,18 +676,29 @@ If you need custom claims in the JWT, configure them in Supabase:
 
 ### Multiple Environments
 
+Since the configuration is stored in your Supabase project's Storage, each environment (production, staging, local) will have its own configuration naturally as you connect them to different Supabase projects:
+
+**SSO Site Environment Variables:**
 ```bash
 # .env.production
-VITE_COOKIE_DOMAIN=.example.com
-VITE_API_BASE_URL=https://api.example.com
+VITE_SUPABASE_URL=https://prod.supabase.co
 
 # .env.staging
-VITE_COOKIE_DOMAIN=.staging.example.com
-VITE_API_BASE_URL=https://api.staging.example.com
+VITE_SUPABASE_URL=https://staging.supabase.co
+```
 
-# .env.local
-VITE_COOKIE_DOMAIN=.local.dev
-VITE_API_BASE_URL=http://api.local.dev:3001
+**SSO Site Admin Panel Settings:**
+- Production: Set domain to `.example.com`
+- Staging: Set domain to `.staging.example.com`
+
+**Business Site Environment Variables:**
+(Business sites still use environment variables to match the SSO configuration)
+```bash
+# your-app/.env.production
+VITE_COOKIE_DOMAIN=.example.com
+
+# your-app/.env.staging
+VITE_COOKIE_DOMAIN=.staging.example.com
 ```
 
 ---
@@ -697,18 +711,17 @@ VITE_API_BASE_URL=http://api.local.dev:3001
 - `src/lib/apiClient.ts` - API client with automatic JWT
 
 **Key Configuration:**
-- `VITE_COOKIE_DOMAIN=.example.com` - Enables cross-subdomain
+- **Cookie Domain** - Configured in SSO site Admin Panel (enables cross-subdomain)
 - `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` - Same across all sites
 - `SUPABASE_JWT_SECRET` - Backend validation (keep secret!)
 
 **Flow:**
 1. User logs in at `auth.example.com`
-2. Session stored in cookie (`domain=.example.com`)
-3. Business site reads cookie via Supabase client
+2. Session stored in cookie using domain from Admin Panel
+3. Business site reads cookie via Supabase client (configured with the same domain)
 4. JWT extracted and sent to backend API
 5. Backend validates JWT and authenticates user
 
 For more help, see:
 - [README.md](./README.md) - General setup
-- [CONFIG.md](./CONFIG.md) - Site configuration
 - [Supabase Docs](https://supabase.com/docs/guides/auth)

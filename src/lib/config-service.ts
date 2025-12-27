@@ -5,13 +5,38 @@ import { defaultConfig } from '@/../site.config.default'
 /**
  * Storage bucket name for site configuration
  */
-const CONFIG_BUCKET = 'auth-site'
+export const CONFIG_BUCKET = 'auth-site'
 const CONFIG_FILE = 'config.json'
 
 let cachedConfig: SiteConfig | null = null
 
 export function getCachedConfig(): SiteConfig | null {
   return cachedConfig
+}
+
+/**
+ * Get SQL for setting up the storage bucket and policies
+ */
+export function getStorageSetupSQL(): string {
+  return `-- Create the bucket
+insert into storage.buckets (id, name, public)
+values ('${CONFIG_BUCKET}', '${CONFIG_BUCKET}', true);
+
+-- Allow public access to read config
+create policy "Public Access"
+  on storage.objects for select
+  using ( bucket_id = '${CONFIG_BUCKET}' );
+
+-- Allow authenticated users to upload config
+create policy "Authenticated Insert"
+  on storage.objects for insert
+  to authenticated
+  with check ( bucket_id = '${CONFIG_BUCKET}' );
+
+create policy "Authenticated Update"
+  on storage.objects for update
+  to authenticated
+  using ( bucket_id = '${CONFIG_BUCKET}' );`
 }
 
 /**
@@ -139,6 +164,9 @@ export async function uploadConfigToStorage(
     .upload(CONFIG_FILE, blob, { upsert: true })
 
   if (error) {
+    if (error.message.includes('bucket not found') || error.message.includes('Bucket not found')) {
+      throw new Error(`Storage bucket "${CONFIG_BUCKET}" not found. Please create it in your Supabase project first.`)
+    }
     throw new Error(`Failed to upload config: ${error.message}`)
   }
 }

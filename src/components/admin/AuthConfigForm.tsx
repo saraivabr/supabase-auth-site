@@ -20,6 +20,7 @@ const schema = z.object({
     expires: z.number().min(1, 'Must be at least 1 day'),
     sameSite: z.enum(['Lax', 'Strict', 'None']),
   }).optional(),
+  cookieDomain: z.string().optional(),
 })
 
 type FormData = z.infer<typeof schema>
@@ -267,6 +268,19 @@ export function AuthConfigForm({ initialData, onSave, isLoading }: AuthConfigFor
             />
             <p className="text-xs text-muted-foreground">
               Controls when cookies are sent with cross-site requests
+            </p>
+          </div>
+
+          <div className="space-y-2 md:col-span-2">
+            <Label htmlFor="cookieDomain">Cookie Domain (SSO)</Label>
+            <Input
+              id="cookieDomain"
+              placeholder=".example.com"
+              {...register('cookieDomain')}
+            />
+            <p className="text-xs text-muted-foreground">
+              Set to your root domain (e.g., .example.com) to share sessions across subdomains. 
+              Leave empty to use the current domain only.
             </p>
           </div>
         </div>

@@ -77,5 +77,11 @@ export interface SiteConfig {
       /** SameSite attribute for cookies */
       sameSite: 'Lax' | 'Strict' | 'None'
     }
+    
+    /** 
+     * Domain for cookie storage (e.g., '.example.com') 
+     * Used for cross-subdomain SSO.
+     */
+    cookieDomain?: string
   }
 }

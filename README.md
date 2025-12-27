@@ -89,7 +89,6 @@ Add the following environment variables in your deployment platform settings:
 | `VITE_SUPABASE_URL` | Your Supabase Project URL (e.g., `https://xyz.supabase.co`) |
 | `VITE_SUPABASE_ANON_KEY` | Your Supabase Anon / Public Key |
 | `VITE_ADMIN_EMAILS` | Comma-separated list of emails allowed to access the Admin Panel |
-| `VITE_COOKIE_DOMAIN` | *(Optional)* Set to `.yourdomain.com` for SSO support |
 
 ### 4. Supabase Configuration
 
