@@ -51,7 +51,7 @@ function HomePage() {
       <div className="min-h-screen flex items-center justify-center bg-background">
         <div className="flex flex-col items-center gap-4">
           <div className="h-10 w-10 animate-spin rounded-full border-4 border-primary border-t-transparent" />
-          <p className="text-muted-foreground font-medium">Initializing...</p>
+          <p className="text-muted-foreground font-medium">Inicializando...</p>
         </div>
       </div>
     )
@@ -65,9 +65,9 @@ function HomePage() {
 
   const getGreeting = () => {
     const hour = new Date().getHours()
-    if (hour < 12) return 'Good morning'
-    if (hour < 18) return 'Good afternoon'
-    return 'Good evening'
+    if (hour < 12) return 'Bom dia'
+    if (hour < 18) return 'Boa tarde'
+    return 'Boa noite'
   }
 
   const getSystemInfo = () => {
@@ -108,18 +108,18 @@ function HomePage() {
             <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-foreground">
               {getGreeting()}, <br className="hidden md:block" />
               <span className="text-primary bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/60">
-                {user.user_metadata?.full_name?.split(' ')[0] || 'Traveler'}
+                {user.user_metadata?.full_name?.split(' ')[0] || 'Viajante'}
               </span>
             </h1>
             <p className="text-lg text-muted-foreground">
-              Welcome to your personal identity hub.
+              Bem-vindo ao seu centro de identidade pessoal.
             </p>
           </div>
           
           <div className="flex items-center gap-3">
             <Button variant="outline" onClick={handleSignOut} className="gap-2">
               <LogOut className="h-4 w-4" />
-              Sign Out
+              Sair
             </Button>
             <Button asChild className="gap-2 shadow-lg shadow-primary/20">
               <Link to="/console">
@@ -171,16 +171,16 @@ function HomePage() {
                       </Badge>
                     ) : user?.is_anonymous ? (
                       <Badge variant="secondary" className="px-3 py-1 bg-yellow-500/10 text-yellow-500 border-yellow-500/20 hover:bg-yellow-500/20">
-                        Anonymous
+                        Anônimo
                       </Badge>
                     ) : (
                       <Badge variant="secondary" className="px-3 py-1 bg-primary/10 text-primary border-primary/20 hover:bg-primary/20">
-                        Member
+                        Membro
                       </Badge>
                     )}
                     <Badge variant="outline" className="px-3 py-1 gap-1">
                       <Clock className="h-3 w-3" />
-                      Joined {new Date(user.created_at).toLocaleDateString()}
+                      Entrou em {new Date(user.created_at).toLocaleDateString('pt-BR')}
                     </Badge>
                   </div>
                 </div>
@@ -193,8 +193,8 @@ function HomePage() {
                <div className="h-10 w-10 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-500 mb-4">
                  <Wifi className="h-5 w-5" />
                </div>
-               <h3 className="font-semibold text-lg mb-1">Connection</h3>
-               <p className="text-sm text-muted-foreground">Securely connected via</p>
+               <h3 className="font-semibold text-lg mb-1">Conexão</h3>
+               <p className="text-sm text-muted-foreground">Conectado de forma segura via</p>
              </div>
              
              <div className="mt-4">
@@ -214,34 +214,34 @@ function HomePage() {
            <Card className="p-5 border-muted/60 hover:border-primary/50 transition-colors cursor-default">
               <div className="flex items-center gap-3 mb-2">
                 <ShieldCheck className="h-5 w-5 text-green-500" />
-                <span className="font-medium">Security</span>
+                <span className="font-medium">Segurança</span>
               </div>
-              <p className="text-2xl font-bold">{user.factors?.length ? 'Enhanced' : 'Standard'}</p>
-              <p className="text-xs text-muted-foreground mt-1">MFA is {user.factors?.length ? 'enabled' : 'not enabled'}</p>
+              <p className="text-2xl font-bold">{user.factors?.length ? 'Aprimorada' : 'Padrão'}</p>
+              <p className="text-xs text-muted-foreground mt-1">MFA está {user.factors?.length ? 'ativado' : 'não ativado'}</p>
            </Card>
 
            <Card className="p-5 border-muted/60 hover:border-primary/50 transition-colors cursor-default">
               <div className="flex items-center gap-3 mb-2">
                 <Clock className="h-5 w-5 text-orange-500" />
-                <span className="font-medium">Session</span>
+                <span className="font-medium">Sessão</span>
               </div>
-              <p className="text-2xl font-bold">Active</p>
-              <p className="text-xs text-muted-foreground mt-1">Expires {session?.expires_at ? new Date(session.expires_at * 1000).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : 'Never'}</p>
+              <p className="text-2xl font-bold">Ativa</p>
+              <p className="text-xs text-muted-foreground mt-1">Expira às {session?.expires_at ? new Date(session.expires_at * 1000).toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit'}) : 'Nunca'}</p>
            </Card>
 
            <Card className="p-5 border-muted/60 hover:border-primary/50 transition-colors cursor-default">
               <div className="flex items-center gap-3 mb-2">
                 <Fingerprint className="h-5 w-5 text-purple-500" />
-                <span className="font-medium">Identity</span>
+                <span className="font-medium">Identidade</span>
               </div>
               <p className="text-2xl font-bold">{user.identities?.length || 1}</p>
-              <p className="text-xs text-muted-foreground mt-1">Linked accounts</p>
+              <p className="text-xs text-muted-foreground mt-1">Contas vinculadas</p>
            </Card>
 
            <Card className="p-5 border-muted/60 hover:border-primary/50 transition-colors cursor-default">
               <div className="flex items-center gap-3 mb-2">
                 <Cpu className="h-5 w-5 text-slate-500" />
-                <span className="font-medium">System</span>
+                <span className="font-medium">Sistema</span>
               </div>
               <p className="text-2xl font-bold">v{import.meta.env.APP_VERSION}</p>
               <p className="text-xs text-muted-foreground mt-1">{systemInfo.os} • {systemInfo.browser}</p>
@@ -253,7 +253,7 @@ function HomePage() {
            <div className="flex items-center justify-between">
               <h3 className="text-sm font-medium text-muted-foreground uppercase tracking-wider flex items-center gap-2">
                 <Terminal className="h-4 w-4" />
-                Developer Mode
+                Modo Desenvolvedor
               </h3>
               <Button 
                 variant="ghost" 
@@ -261,7 +261,7 @@ function HomePage() {
                 onClick={() => setShowDevInfo(!showDevInfo)}
                 className="text-xs text-muted-foreground hover:text-foreground"
               >
-                {showDevInfo ? 'Hide Details' : 'View Details'}
+                {showDevInfo ? 'Ocultar Detalhes' : 'Ver Detalhes'}
                 {showDevInfo ? <ChevronUp className="ml-2 h-3 w-3" /> : <ChevronDown className="ml-2 h-3 w-3" />}
               </Button>
            </div>
